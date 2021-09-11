@@ -1,11 +1,13 @@
 package com.app.duck
 
+import com.app.behavior.dance.DanceBehavior
 import com.app.behavior.fly.FlyBehavior
 import com.app.behavior.quack.QuackBehavior
 
 abstract class Duck(
     var flyBehavior: FlyBehavior,
-    var quackBehavior: QuackBehavior
+    var quackBehavior: QuackBehavior,
+    var danceBehavior: DanceBehavior
 ) {
     abstract fun display()
 
@@ -15,6 +17,10 @@ abstract class Duck(
 
     fun performQuack() {
         quackBehavior.quack()
+    }
+
+    fun performDance() {
+        danceBehavior.dance()
     }
 
     fun swim() {
