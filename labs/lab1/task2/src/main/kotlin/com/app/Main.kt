@@ -1,9 +1,11 @@
 package com.app
 
+import com.app.behavior.fly.FlyCountingWrapper
 import com.app.behavior.fly.FlyNoWay
 import com.app.behavior.fly.FlyRockerPower
 import com.app.duck.DecoyDuck
 import com.app.duck.MallardDuck
+import com.app.duck.RedHeadDuck
 
 fun main() {
     println("< Mallard Duck >")
@@ -21,8 +23,19 @@ fun main() {
     println("< Decoy Duck >")
     val decoy = DecoyDuck()
     decoy.performFly()
-    decoy.flyBehavior = FlyRockerPower()
+    decoy.flyBehavior = FlyCountingWrapper(FlyRockerPower())
     println("< change fly behavior >")
     decoy.performFly()
     decoy.performFly()
+
+    println()
+    println("< RedHead Duck >")
+    val readHead = RedHeadDuck()
+    readHead.performFly()
+    readHead.performFly()
+    readHead.flyBehavior = FlyCountingWrapper(FlyRockerPower())
+    println("< change fly behavior >")
+    readHead.performFly()
+    readHead.performFly()
+
 }

@@ -1,11 +1,12 @@
 package com.app.duck
 
 import com.app.behavior.dance.DanceWaltz
+import com.app.behavior.fly.FlyCountingWrapper
 import com.app.behavior.fly.FlyWithWings
 import com.app.behavior.quack.Quack
 
 class MallardDuck : Duck(
-    flyBehavior = FlyWithWings(),
+    flyBehavior = FlyCountingWrapper(FlyWithWings()),
     quackBehavior = Quack(),
     danceBehavior = DanceWaltz()
 ) {
