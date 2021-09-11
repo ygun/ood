@@ -1,10 +1,12 @@
+package com.app
+
 import com.app.behavior.dance.DanceWaltz
 import com.app.behavior.fly.FlyRockerPower
 import com.app.behavior.quack.Squeak
 import com.app.duck.DecoyDuck
 import com.app.duck.MallardDuck
 
-fun main(args: Array<String>) {
+fun main() {
     println("< Mallard Duck >")
     val mallard = MallardDuck()
     mallard.performFly()
