@@ -6,7 +6,7 @@ import com.app.behavior.fly.FlyNoWay
 import com.app.behavior.quack.Squeak
 
 class RubberDuck : Duck(
-    flyBehavior = FlyCountingWrapper(FlyNoWay()),
+    flyBehavior = FlyNoWay(),
     quackBehavior = Squeak(),
     danceBehavior = DanceStay()
 ) {

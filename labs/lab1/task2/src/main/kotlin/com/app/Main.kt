@@ -29,6 +29,7 @@ fun main() {
     decoy.performFly()
 
     println()
+
     println("< RedHead Duck >")
     val readHead = RedHeadDuck()
     readHead.performFly()
