@@ -3,13 +3,16 @@ package observer
 import subject.WeatherData
 import util.Context
 
-class ForecastDisplay(private val weatherData: WeatherData) : Observer, DisplayElement {
+class ForecastDisplay(
+    private val weatherData: WeatherData,
+    order: Int? = null
+) : Observer, DisplayElement {
 
     private var currentPressure = 0f
     private var lastPressure = 0f
 
     init {
-        weatherData.registerObserver(this)
+        weatherData.registerObserver(this, order)
     }
 
     override fun update(context: Context) {

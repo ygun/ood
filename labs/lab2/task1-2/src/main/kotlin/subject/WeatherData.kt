@@ -6,7 +6,7 @@ import java.util.*
 
 class WeatherData : Subject {
 
-    private val observers = Collections.synchronizedList(mutableListOf<Observer>())
+    private val observers = mutableListOf<Observer>()
     private var context: Context = Context(0f, 0f, 0f)
 
     override fun registerObserver(observer: Observer) {

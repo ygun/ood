@@ -4,12 +4,15 @@ import subject.WeatherData
 import util.Context
 import kotlin.math.pow
 
-class HeatIndexDisplay(private val weatherData: WeatherData) : Observer, DisplayElement {
+class HeatIndexDisplay(
+    private val weatherData: WeatherData,
+    order: Int? = null
+) : Observer, DisplayElement {
 
     private var heatIndex = 0f
 
     init {
-        weatherData.registerObserver(this)
+        weatherData.registerObserver(this, order)
     }
 
     override fun update(context: Context) {

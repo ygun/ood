@@ -5,10 +5,11 @@ import subject.WeatherData
 import util.ContextFields
 
 class PressureStatisticsDisplay(
-    private val weatherData: WeatherData
+    private val weatherData: WeatherData,
+    order: Int? = null
 ) : StatisticsDisplay(ContextFields.PRESSURE), Observer {
 
     init {
-        weatherData.registerObserver(this)
+        weatherData.registerObserver(this, order)
     }
 }

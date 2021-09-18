@@ -3,13 +3,16 @@ package observer
 import subject.Subject
 import util.Context
 
-class CurrentConditionsDisplay(private val weatherData: Subject) : Observer, DisplayElement {
+class CurrentConditionsDisplay(
+    private val weatherData: Subject,
+    order: Int? = null
+) : Observer, DisplayElement {
 
     private var temperature = 0f
     private var humidity = 0f
 
     init {
-        weatherData.registerObserver(this)
+        weatherData.registerObserver(this, order)
     }
 
     override fun update(context: Context) {

@@ -3,7 +3,6 @@ import observer.ForecastDisplay
 import observer.HeatIndexDisplay
 import observer.statistic.HumidityStaticsDisplay
 import observer.statistic.PressureStatisticsDisplay
-import observer.statistic.StatisticsDisplay
 import observer.statistic.TemperatureStatisticsDisplay
 import subject.WeatherData
 import util.Context

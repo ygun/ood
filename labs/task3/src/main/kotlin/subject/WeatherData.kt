@@ -6,11 +6,11 @@ import java.util.*
 
 class WeatherData : Subject {
 
-    private val observers = Collections.synchronizedList(mutableListOf<Observer>())
+    private val observers = hashMapOf<Observer, Int?>()
     private var context: Context = Context(0f, 0f, 0f)
 
-    override fun registerObserver(observer: Observer) {
-        observers.add(observer)
+    override fun registerObserver(observer: Observer, orderNum: Int?) {
+        observers.putIfAbsent(observer, orderNum)
     }
 
     override fun removeObserver(observer: Observer) {
@@ -18,9 +18,9 @@ class WeatherData : Subject {
     }
 
     override fun notifyObservers() {
-        val copyOfObservers = observers.toMutableList()
-        copyOfObservers.forEach {
-            it.update(context)
+        val copyOfObservers = observers.toList().sortedWith(compareBy(nullsLast()) { it.second }).toMap()
+        copyOfObservers.forEach { (observer, _) ->
+            observer.update(context)
         }
     }
 
