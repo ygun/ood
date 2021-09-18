@@ -1,11 +1,12 @@
 package subject
 
-import util.Context
 import observer.Observer
+import util.Context
+import java.util.*
 
 class WeatherData : Subject {
 
-    private val observers = mutableListOf<Observer>()
+    private val observers = Collections.synchronizedList(mutableListOf<Observer>())
     private var context: Context = Context(0f, 0f, 0f)
 
     override fun registerObserver(observer: Observer) {
@@ -17,7 +18,8 @@ class WeatherData : Subject {
     }
 
     override fun notifyObservers() {
-        observers.forEach {
+        val copyOfObservers = observers.toMutableList()
+        copyOfObservers.forEach {
             it.update(context)
         }
     }
