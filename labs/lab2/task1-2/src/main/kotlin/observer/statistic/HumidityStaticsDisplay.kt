@@ -1,10 +1,10 @@
 package observer.statistic
 
-import subject.WeatherData
+import subject.Subject
 import util.ContextFields
 
 class HumidityStaticsDisplay(
-    private val weatherData: WeatherData
+    private val weatherData: Subject
 ) : StatisticsDisplay(ContextFields.HUMIDITY) {
 
     init {

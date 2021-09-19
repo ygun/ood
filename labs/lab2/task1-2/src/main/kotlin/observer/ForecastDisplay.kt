@@ -1,9 +1,9 @@
 package observer
 
-import subject.WeatherData
+import subject.Subject
 import util.Context
 
-class ForecastDisplay(private val weatherData: WeatherData) : Observer, DisplayElement {
+class ForecastDisplay(private val weatherData: Subject) : Observer, DisplayElement {
 
     private var currentPressure = 0f
     private var lastPressure = 0f

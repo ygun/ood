@@ -1,10 +1,10 @@
 package observer
 
-import subject.WeatherData
+import subject.Subject
 import util.Context
 import kotlin.math.pow
 
-class HeatIndexDisplay(private val weatherData: WeatherData) : Observer, DisplayElement {
+class HeatIndexDisplay(private val weatherData: Subject) : Observer, DisplayElement {
 
     private var heatIndex = 0f
 

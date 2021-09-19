@@ -2,10 +2,10 @@ package task2
 
 import observer.DisplayElement
 import observer.Observer
-import subject.WeatherData
+import subject.Subject
 import util.Context
 
-class DisplayElementTest(private val weatherData: WeatherData) : Observer, DisplayElement {
+class DisplayElementTest(private val weatherData: Subject) : Observer, DisplayElement {
 
     init {
         weatherData.registerObserver(this)

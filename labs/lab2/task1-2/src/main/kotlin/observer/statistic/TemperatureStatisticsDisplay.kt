@@ -1,11 +1,11 @@
 package observer.statistic
 
 import observer.Observer
-import subject.WeatherData
+import subject.Subject
 import util.ContextFields
 
 class TemperatureStatisticsDisplay(
-    private val weatherData: WeatherData
+    private val weatherData: Subject
 ) : StatisticsDisplay(ContextFields.TEMPERATURE), Observer {
 
     init {
