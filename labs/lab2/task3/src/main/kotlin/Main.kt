@@ -10,10 +10,10 @@ import util.WeatherMeasurement
 fun main() {
     val weatherData = WeatherData()
 
-    val currentConditionsDisplay = CurrentConditionsDisplay(weatherData)
-    val temperatureStatisticsDisplay = TemperatureStatisticsDisplay(weatherData)
-    val humidityStaticsDisplay = HumidityStaticsDisplay(weatherData)
-    val pressureStatisticsDisplay = PressureStatisticsDisplay(weatherData)
+    val currentConditionsDisplay = CurrentConditionsDisplay(weatherData, 5)
+    val temperatureStatisticsDisplay = TemperatureStatisticsDisplay(weatherData, 1)
+    val humidityStaticsDisplay = HumidityStaticsDisplay(weatherData, 100)
+    val pressureStatisticsDisplay = PressureStatisticsDisplay(weatherData, 12)
     val forecastDisplay = ForecastDisplay(weatherData)
     val heatIndexDisplay = HeatIndexDisplay(weatherData)
 

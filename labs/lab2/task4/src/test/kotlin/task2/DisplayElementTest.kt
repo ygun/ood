@@ -5,8 +5,7 @@ import observer.Observer
 import subject.Subject
 import util.WeatherMeasurement
 
-class DisplayElementTest(private val weatherData: Subject<WeatherMeasurement>) : Observer<WeatherMeasurement>,
-    DisplayElement {
+class DisplayElementTest(private val weatherData: Subject<WeatherMeasurement>) : Observer<WeatherMeasurement>, DisplayElement {
 
     init {
         weatherData.registerObserver(this)
