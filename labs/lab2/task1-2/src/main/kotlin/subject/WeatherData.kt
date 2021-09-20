@@ -18,7 +18,7 @@ class WeatherData : Subject {
     }
 
     override fun notifyObservers() {
-        val copyOfObservers = observers.toMutableList()
+        val copyOfObservers = observers.toList()
         copyOfObservers.forEach {
             it.update(context)
         }
