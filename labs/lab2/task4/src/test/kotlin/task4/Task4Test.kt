@@ -1,7 +1,7 @@
 package task4
 
 import display.ForecastDisplay
-import display.statistic.HumidityStaticsDisplay
+import display.statistic.HumidityStatisticsDisplay
 import display.statistic.PressureStatisticsDisplay
 import display.statistic.TemperatureStatisticsDisplay
 import org.junit.jupiter.api.Test
@@ -49,7 +49,7 @@ class Task4Test {
         var forecastDisplay = ForecastDisplay(weatherDataIn, 11, weatherDataOut, 20)
         var temperatureStatisticsDisplay = TemperatureStatisticsDisplay(weatherDataIn, 20, weatherDataOut, 10)
         var pressureStatisticsDisplay = PressureStatisticsDisplay(weatherDataIn, 9, weatherDataOut, 65)
-        var humidityStaticsDisplay = HumidityStaticsDisplay(weatherDataIn, 65, weatherDataOut, 8)
+        var humidityStatisticsDisplay = HumidityStatisticsDisplay(weatherDataIn, 65, weatherDataOut, 8)
 
         weatherDataIn.setContext(WeatherMeasurement(80.0, 65.0, 30.4))
         println()

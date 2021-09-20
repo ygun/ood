@@ -1,7 +1,6 @@
 package task3
 
 import display.ForecastDisplay
-import display.statistic.HumidityStaticsDisplay
 import org.junit.jupiter.api.Test
 import subject.WeatherData
 import util.WeatherMeasurement

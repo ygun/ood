@@ -1,7 +1,7 @@
 import display.CurrentConditionsDisplay
 import display.ForecastDisplay
 import display.HeatIndexDisplay
-import display.statistic.HumidityStaticsDisplay
+import display.statistic.HumidityStatisticsDisplay
 import display.statistic.PressureStatisticsDisplay
 import display.statistic.TemperatureStatisticsDisplay
 import subject.WeatherData
@@ -13,7 +13,7 @@ fun main() {
 
     val currentConditionsDisplay = CurrentConditionsDisplay(weatherDataIn, 5, weatherDataOut)
     val temperatureStatisticsDisplay = TemperatureStatisticsDisplay(weatherDataIn, 1, weatherDataOut, 2)
-    val humidityStaticsDisplay = HumidityStaticsDisplay(weatherDataIn, 100, weatherDataOut, 100)
+    val humidityStatisticsDisplay = HumidityStatisticsDisplay(weatherDataIn, 100, weatherDataOut, 100)
     val pressureStatisticsDisplay = PressureStatisticsDisplay(weatherDataIn, 12, weatherDataOut, 12)
     val forecastDisplay = ForecastDisplay(weatherDataIn, outSubject = weatherDataOut)
     val heatIndexDisplay = HeatIndexDisplay(weatherDataIn, outSubject = weatherDataOut)

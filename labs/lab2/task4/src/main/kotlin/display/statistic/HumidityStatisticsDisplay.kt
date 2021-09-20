@@ -3,7 +3,7 @@ package display.statistic
 import subject.Subject
 import util.WeatherMeasurement
 
-class HumidityStaticsDisplay(
+class HumidityStatisticsDisplay(
     inSubject: Subject<WeatherMeasurement>,
     inPriority: Int = 0,
     outSubject: Subject<WeatherMeasurement>,
