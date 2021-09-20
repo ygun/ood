@@ -20,6 +20,7 @@ class WindDisplay(
     private var maxSpeed = Float.MIN_VALUE
     private var minSpeed = Float.MAX_VALUE
     private var curSpeed = 0f
+    private var sumSpeed = 0f
     private var avgDirectionAngle: Double = 0.0
     private var numReadings = 0
 
@@ -35,7 +36,7 @@ class WindDisplay(
         curDirection = context.windDirection
 
         curSpeed = context.windSpeed
-
+        sumSpeed += curSpeed
         if (curSpeed > maxSpeed) {
             maxSpeed = curSpeed
         }
@@ -55,7 +56,8 @@ class WindDisplay(
     override fun display() {
         println("Avg angle/Max/Min wind speed: $avgDirectionAngle/$maxSpeed/$minSpeed; " +
                 "Current direction: $curDirection; " +
-                "Current speed: $curSpeed")
+                "Current speed: $curSpeed; " +
+                "Avg speed: ${sumSpeed / numReadings}")
     }
 
 }
