@@ -18,7 +18,7 @@ abstract class SubjectImpl<Context> : Subject<Context> {
 
     override fun notifyObservers(context: Context) {
         observers.toSortedSet().forEach {
-            it.observer.update(context)
+            it.observer.update(this, context)
         }
     }
 

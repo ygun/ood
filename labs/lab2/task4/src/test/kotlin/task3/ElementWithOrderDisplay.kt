@@ -14,7 +14,7 @@ class ElementWithOrderDisplay(
         weatherData.registerObserver(this, order)
     }
 
-    override fun update(context: WeatherMeasurement) {
+    override fun update(subject: Subject<WeatherMeasurement>, context: WeatherMeasurement) {
         display()
     }
 

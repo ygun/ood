@@ -17,11 +17,6 @@ class HeatIndexDisplay(
     private var heatIndexIn = 0.0
     private var heatIndexOut = 0.0
 
-    init {
-        inSubject.registerObserver(this, inPriority)
-        outSubject.registerObserver(this, outPriority)
-    }
-
     override fun update(subjectLocation: SubjectLocation, measurement: WeatherMeasurement) {
         when (subjectLocation) {
             SubjectLocation.INSIDE -> heatIndexIn = calculateHeatIndex(measurement.temperature, measurement.humidity)

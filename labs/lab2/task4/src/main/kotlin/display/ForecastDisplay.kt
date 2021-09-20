@@ -18,11 +18,6 @@ class ForecastDisplay(
     private var outCurrentPressure = 0.0
     private var outLastPressure = 0.0
 
-    init {
-        inSubject.registerObserver(this, inPriority)
-        outSubject.registerObserver(this, outPriority)
-    }
-
     override fun update(subjectLocation: SubjectLocation, measurement: WeatherMeasurement) {
         when (subjectLocation) {
             SubjectLocation.INSIDE -> {
@@ -44,7 +39,7 @@ class ForecastDisplay(
             SubjectLocation.OUTSIDE -> getWeatherMessage(SubjectLocation.OUTSIDE)
         }
 
-        println("${subjectLocation.name} Heat index: $heatIndexMsg")
+        println("${subjectLocation.name}: Heat index: $heatIndexMsg")
     }
 
     private fun getWeatherMessage(subjectLocation: SubjectLocation): String {

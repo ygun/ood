@@ -15,11 +15,6 @@ class CurrentConditionsDisplay(
     private var curInMeasurement: WeatherMeasurement = WeatherMeasurement()
     private var curOutMeasurement: WeatherMeasurement = WeatherMeasurement()
 
-    init {
-        inSubject.registerObserver(this, inPriority)
-        outSubject.registerObserver(this, outPriority)
-    }
-
     override fun update(subjectLocation: SubjectLocation, measurement: WeatherMeasurement) {
         when (subjectLocation) {
             SubjectLocation.INSIDE -> curInMeasurement = measurement
