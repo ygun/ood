@@ -9,9 +9,7 @@ class Cappuccino(
     portion: Portion = Portion.STANDARD
 ) : Beverage(size, portion) {
 
-    init {
-        description = "$portion Cappuccino"
-    }
+    override fun description(): String = "$portion Cappuccino"
 
     override fun cost(): Double {
         return when(portion) {

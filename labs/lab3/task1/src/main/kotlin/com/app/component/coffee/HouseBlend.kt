@@ -5,9 +5,7 @@ import com.app.beverage.Size
 
 class HouseBlend(size: Size = Size.MIDDLE) : Beverage(size) {
 
-    init {
-        description = "House Blend"
-    }
+    override fun description(): String = "House Blend"
 
     override fun cost(): Double {
         return 0.89

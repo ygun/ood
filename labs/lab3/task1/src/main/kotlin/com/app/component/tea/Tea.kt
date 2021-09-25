@@ -11,9 +11,7 @@ class Tea(
     portion: Portion = Portion.STANDARD
 ) : Beverage(size, portion) {
 
-    init {
-        description = "$portion $teaType Tea"
-    }
+    override fun description(): String = "$portion $teaType Tea"
 
     override fun cost(): Double {
         return DoubleUtils.roundDouble(

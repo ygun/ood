@@ -9,9 +9,7 @@ class DarkRoast(
     portion: Portion = Portion.STANDARD
 ) : Beverage(size, portion) {
 
-    init {
-        description = "Dark Roast Coffee"
-    }
+    override fun description(): String = "Dark Roast Coffee"
 
     override fun cost(): Double {
         return 0.99

@@ -5,12 +5,11 @@ abstract class Beverage(
     var portion: Portion = Portion.STANDARD
 ) {
 
-    open var description = "Unknown beverage"
-
+    abstract fun description(): String
     abstract fun cost(): Double
 
     override fun toString(): String {
-        return "$description;" +
+        return "${description()};" +
                 " cost = ${cost()};" +
                 " size = $size;" +
                 " portion = $portion"

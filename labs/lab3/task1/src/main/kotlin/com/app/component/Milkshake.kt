@@ -9,9 +9,7 @@ class Milkshake(
     portion: Portion = Portion.STANDARD
 ) : Beverage(size, portion) {
 
-    init {
-        description = "$portion Milkshake"
-    }
+    override fun description(): String = "$portion Milkshake"
 
     override fun cost(): Double {
         return when(size) {
