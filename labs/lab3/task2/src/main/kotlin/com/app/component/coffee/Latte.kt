@@ -9,14 +9,10 @@ class Latte(
     portion: Portion = Portion.STANDARD
 ) : Beverage(size, portion) {
 
-    init {
-        description = "$portion Latte"
-    }
+    override fun description(): String = "$portion Latte"
 
-    override fun cost(): Double {
-        return when(portion) {
-            Portion.STANDARD -> 1.23
-            Portion.DOUBLE -> 1.78
-        }
+    override fun cost(): Double = when(portion) {
+        Portion.STANDARD -> 1.23
+        Portion.DOUBLE -> 1.78
     }
 }

@@ -11,10 +11,8 @@ class Cappuccino(
 
     override fun description(): String = "$portion Cappuccino"
 
-    override fun cost(): Double {
-        return when(portion) {
-            Portion.STANDARD -> 1.10
-            Portion.DOUBLE -> 1.65
-        }
+    override fun cost(): Double = when(portion) {
+        Portion.STANDARD -> 1.10
+        Portion.DOUBLE -> 1.65
     }
 }

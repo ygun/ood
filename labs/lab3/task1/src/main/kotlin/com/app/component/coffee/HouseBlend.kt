@@ -7,7 +7,5 @@ class HouseBlend(size: Size = Size.MIDDLE) : Beverage(size) {
 
     override fun description(): String = "House Blend"
 
-    override fun cost(): Double {
-        return 0.89
-    }
+    override fun cost(): Double = 0.89
 }

@@ -6,7 +6,7 @@ import com.app.beverage.Size
 
 class Cream(private val beverage: Beverage) : CondimentDecorator(beverage) {
 
-    override var description: String = beverage.description + ", Cream"
+    override fun description(): String = beverage.description() + ", Cream"
 
     override fun cost(): Double {
         val cost = beverage.cost()

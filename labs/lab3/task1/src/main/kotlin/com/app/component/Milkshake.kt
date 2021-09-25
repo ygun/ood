@@ -11,11 +11,9 @@ class Milkshake(
 
     override fun description(): String = "$portion Milkshake"
 
-    override fun cost(): Double {
-        return when(size) {
-            Size.SMALL -> 0.69
-            Size.MIDDLE -> 0.82
-            Size.BIG -> 1.10
-        }
+    override fun cost(): Double = when(size) {
+        Size.SMALL -> 0.69
+        Size.MIDDLE -> 0.82
+        Size.BIG -> 1.10
     }
 }

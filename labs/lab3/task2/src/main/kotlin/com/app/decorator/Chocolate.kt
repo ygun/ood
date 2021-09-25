@@ -14,9 +14,9 @@ class Chocolate(
         }
     }
 
-    override var description: String = when(numberOfSquares) {
-        1 -> beverage.description + ", Chocolate"
-        else -> beverage.description + ", $numberOfSquares Chocolate Squares"
+    override fun description(): String = when(numberOfSquares) {
+        1 -> beverage.description() + ", Chocolate"
+        else -> beverage.description() + ", $numberOfSquares Chocolate Squares"
     }
 
     override fun cost(): Double {

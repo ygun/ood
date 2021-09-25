@@ -11,7 +11,5 @@ class DarkRoast(
 
     override fun description(): String = "Dark Roast Coffee"
 
-    override fun cost(): Double {
-        return 0.99
-    }
+    override fun cost(): Double = 0.99
 }

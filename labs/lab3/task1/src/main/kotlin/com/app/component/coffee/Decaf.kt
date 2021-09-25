@@ -7,7 +7,5 @@ class Decaf(size: Size = Size.MIDDLE) : Beverage(size) {
 
     override fun description(): String = "Decaf Coffee"
 
-    override fun cost(): Double {
-        return 1.05
-    }
+    override fun cost(): Double = 1.05
 }

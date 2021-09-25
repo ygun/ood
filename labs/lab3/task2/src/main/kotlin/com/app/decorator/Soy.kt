@@ -6,7 +6,7 @@ import com.app.beverage.Size
 
 class Soy(private val beverage: Beverage) : CondimentDecorator(beverage) {
 
-    override var description: String = beverage.description + ", Soy"
+    override fun description(): String = beverage.description() + ", Soy"
 
     override fun cost(): Double {
         val cost = beverage.cost()
