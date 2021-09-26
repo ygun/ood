@@ -10,15 +10,16 @@ fun main(args: Array<String>) {
     val inputStream = decorators.first
     val outputStream = decorators.second
 
-    inputStream.use { input ->
-        outputStream.use { output ->
-                inputStream.copyTo(output)
-        }
-    }
+    inputStream.copyTo(outputStream)
+    outputStream.flush()
 }
 
 private fun createDecorators(args: Array<String>): Pair<InputStream, OutputStream> {
-    val inputStream: FileInputStream = FileInputStream(args[args.size - 2])
-    val outputStream: FileOutputStream = FileOutputStream(args[args.size - 1])
-    return buildStreams(args.copyOfRange(0, args.size - 2), inputStream, outputStream)
+    val inputStream: InputStream = FileInputStream(args[args.size - 2])
+    val outputStream: OutputStream = FileOutputStream(args[args.size - 1])
+    return StreamDecoratorsFabric(
+        args.copyOfRange(0, args.size - 2),
+        inputStream,
+        outputStream
+    ).build()
 }

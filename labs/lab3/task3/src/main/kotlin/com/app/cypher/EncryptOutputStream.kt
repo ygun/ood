@@ -2,7 +2,7 @@ package com.app.cypher
 
 import java.io.OutputStream
 
-class EncryptInputStream(
+class EncryptOutputStream(
     private val stream: OutputStream,
     private val key: Long
 ) : OutputStream() {

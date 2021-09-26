@@ -1,8 +1,16 @@
 package com.app
 
-enum class Operation(operationName: String) {
-    ENCRYPT("--encrypt"),
-    DECRYPT ("--decrypt"),
-    COMPRESS("--compress"),
-    DECOMPRESS("--decompress");
+enum class Operation() {
+    ENCRYPT {
+        override fun toString(): String = "--encrypt"
+    },
+    DECRYPT {
+        override fun toString(): String = "--decrypt"
+    },
+    COMPRESS {
+        override fun toString(): String = "--compress"
+    },
+    DECOMPRESS {
+        override fun toString(): String = "--decompress"
+    };
 }

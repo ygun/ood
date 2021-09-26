@@ -13,7 +13,7 @@ class CompressOutputStream(
         private const val INDEX_OF_REPEAT = 0
         private const val INDEX_OF_CURRENT_BITE = 1
     }
-    
+
     override fun write(byte: Int) {
         if (buffer.isEmpty()) {
             addToBuffer(byte)
@@ -26,7 +26,7 @@ class CompressOutputStream(
     }
 
     private fun isNeedToWriteBuffer(byte: Int): Boolean {
-        return byte != buffer[INDEX_OF_CURRENT_BITE] || buffer[INDEX_OF_REPEAT] > Constants.MAX_BLOCK_SIZE
+        return byte != buffer[INDEX_OF_CURRENT_BITE] || buffer[INDEX_OF_REPEAT] >= Constants.MAX_BLOCK_SIZE
     }
 
     override fun flush() {
@@ -35,9 +35,8 @@ class CompressOutputStream(
     }
 
     private fun writeBuffer() {
-        buffer.forEach {
-            stream.write(it)
-        }
+        buffer.forEach(stream::write)
+        buffer.clear()
     }
 
     private fun addToBuffer(bite: Int) {
