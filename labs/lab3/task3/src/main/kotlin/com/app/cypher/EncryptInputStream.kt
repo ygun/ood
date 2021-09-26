@@ -1,11 +1,13 @@
 package com.app.cypher
 
-import java.io.InputStream
+import java.io.OutputStream
 
 class EncryptInputStream(
-    private val stream: InputStream,
+    private val stream: OutputStream,
     private val key: Long
-) : InputStream() {
+) : OutputStream() {
 
-    override fun read(): Int = getSubstitutionTable(key).getValue(stream.read())
+    override fun write(b: Int) = stream.write(getSubstitutionTable(key).getValue(b))
+
+    override fun flush() = stream.flush()
 }

@@ -12,10 +12,10 @@ class DecompressInputStream(
     override fun read(): Int {
         if (biteQueue.isEmpty()) {
             val numberOfRepeat = stream.read()
-            val currBite = stream.read()
+            val currByte = stream.read()
 
-            if (!isEOF(currBite)) {
-                readBlock(numberOfRepeat, currBite)
+            if (!isEOF(currByte)) {
+                readBlock(numberOfRepeat, currByte)
             }
         }
 
@@ -25,9 +25,9 @@ class DecompressInputStream(
         }
     }
 
-    private fun readBlock(numberOfRepeat: Int, bite: Int) {
-        repeat(numberOfRepeat) { biteQueue.add(bite) }
+    private fun readBlock(numberOfRepeat: Int, byte: Int) {
+        repeat(numberOfRepeat) { biteQueue.add(byte) }
     }
 
-    private fun isEOF(bite: Int) = bite == -1
+    private fun isEOF(byte: Int) = byte == -1
 }
