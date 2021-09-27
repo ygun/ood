@@ -39,7 +39,7 @@ class CompressOutputStream(
         buffer.clear()
     }
 
-    private fun addToBuffer(bite: Int) {
-        buffer.addAll(0, mutableListOf(1, bite))
+    private fun addToBuffer(byte: Int) {
+        buffer.addAll(0, mutableListOf(1, byte))
     }
 }

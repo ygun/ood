@@ -7,7 +7,10 @@ class EncryptOutputStream(
     private val key: Long
 ) : OutputStream() {
 
-    override fun write(b: Int) = stream.write(getSubstitutionTable(key).getValue(b))
+    override fun write(b: Int) {
+        val encryptedByte = getSubstitutionTable(key).getValue(b)
+        stream.write(encryptedByte)
+    }
 
     override fun flush() = stream.flush()
 }

@@ -8,9 +8,9 @@ class DecryptInputStream(
 ) : InputStream() {
 
     override fun read(): Int {
-        return when (val bite = stream.read()) {
+        return when (val byte = stream.read()) {
             -1 -> -1
-            else -> getReversedSubstitutionTable(key).getValue(bite)
+            else -> getReversedSubstitutionTable(key).getValue(byte)
         }
     }
 }

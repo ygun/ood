@@ -7,7 +7,7 @@ import subject.WeatherData
 import task3.ElementWithOrderDisplay
 import util.WeatherMeasurement
 
-class Task6Test {
+clas1s Task6Test {
     @Test
     fun `Test the wind displays with duo data without primary order`() {
         val weatherDataIn = WeatherData()
