@@ -1,32 +1,26 @@
 package com.app.compress
 
 import java.io.OutputStream
-import java.util.*
 
 class CompressOutputStream(
     private val stream: OutputStream
 ) : OutputStream() {
 
-    private val buffer: MutableList<Int> = LinkedList()
-    
-    companion object {
-        private const val INDEX_OF_REPEAT = 0
-        private const val INDEX_OF_CURRENT_BITE = 1
-    }
+    private var buffer: Pair<Int, Int>? = null
 
     override fun write(byte: Int) {
-        if (buffer.isEmpty()) {
+        if (buffer == null) {
             addToBuffer(byte)
         } else if (isNeedToWriteBuffer(byte)) {
             writeBuffer()
             addToBuffer(byte)
         } else {
-            buffer[INDEX_OF_REPEAT]++
+            buffer = Pair(buffer!!.first + 1, buffer!!.second)
         }
     }
 
     private fun isNeedToWriteBuffer(byte: Int): Boolean {
-        return byte != buffer[INDEX_OF_CURRENT_BITE] || buffer[INDEX_OF_REPEAT] >= Constants.MAX_BLOCK_SIZE
+        return byte != buffer!!.second || buffer!!.first >= Constants.MAX_BLOCK_SIZE
     }
 
     override fun flush() {
@@ -35,11 +29,12 @@ class CompressOutputStream(
     }
 
     private fun writeBuffer() {
-        buffer.forEach(stream::write)
-        buffer.clear()
+        stream.write(buffer!!.first)
+        stream.write(buffer!!.second)
+        buffer = null
     }
 
     private fun addToBuffer(byte: Int) {
-        buffer.addAll(0, mutableListOf(1, byte))
+        buffer = Pair(1, byte)
     }
 }
