@@ -22,9 +22,11 @@ class Triangle(
         return triangleArea != 0.0
     }
 
-    override fun draw(canvas: ICanvas) = canvas.drawLine(vertex1, vertex2) +
-            canvas.drawLine(vertex2, vertex3) +
-            canvas.drawLine(vertex3, vertex1)
+    override fun draw(canvas: ICanvas) {
+        canvas.drawLine(vertex1, vertex2)
+        canvas.drawLine(vertex2, vertex3)
+        canvas.drawLine(vertex3, vertex1)
+    }
 
 
     override fun equals(other: Any?): Boolean {

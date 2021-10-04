@@ -21,8 +21,7 @@ class RegularPolygon(
 
     private fun isPolygonValid() = vertexCount > 0 && radius > 0
 
-    override fun draw(canvas: ICanvas): String {
-        var res = ""
+    override fun draw(canvas: ICanvas) {
         val angle = 2 * Math.PI / vertexCount
 
         var firstPoint: Point? = null
@@ -33,7 +32,7 @@ class RegularPolygon(
             val nextPoint = Point(x, y)
 
             if (prevPoint != null) {
-                res += canvas.drawLine(prevPoint, nextPoint)
+                canvas.drawLine(prevPoint, nextPoint)
             } else {
                 firstPoint = nextPoint
             }
@@ -41,8 +40,7 @@ class RegularPolygon(
             prevPoint = nextPoint
         }
         if (prevPoint != null && firstPoint != null)
-            return res + canvas.drawLine(prevPoint, firstPoint)
-        return res
+            canvas.drawLine(prevPoint, firstPoint)
     }
 
     override fun equals(other: Any?): Boolean {
@@ -60,10 +58,8 @@ class RegularPolygon(
 
     override fun hashCode(): Int {
         var result = center.hashCode()
-        result = 31 * result + radius
+        result = 31 * result + radius // cast result to long for avoiding overflow
         result = 31 * result + vertexCount
-        return result
+        return result // cast long to Int
     }
-
-
 }

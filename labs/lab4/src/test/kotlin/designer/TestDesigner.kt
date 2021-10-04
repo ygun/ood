@@ -12,7 +12,12 @@ class TestDesigner {
         val factory = ShapeFactory()
         val designer = Designer(factory)
 
-        /*assertEquals(
+        val input = "rectangle green 0.0 0.0 1.0 1.0\n" +
+                "triangle green 0.0 0.0 1.0 1.0 4.2 5.1\n" +
+                "ellipse green 0.0 0.0 4 2\n" +
+                "regular-polygon green 0.0 0.0 4 2\n" +
+                "end\n"
+        assertEquals(
             PictureDraft(
                 listOf(
                     Rectangle(Color.GREEN, Point(0.0, 0.0), Point(1.0, 1.0)),
@@ -22,13 +27,8 @@ class TestDesigner {
                 )
             ),
             designer.createDraft(
-                listOf(
-                    "rectangle green 0.0 0.0 1.0 1.0",
-                    "triangle green 0.0 0.0 1.0 1.0 4.2 5.1",
-                    "ellipse green 0.0 0.0 4 2",
-                    "regular-polygon green 0.0 0.0 4 2"
-                )
+                input.byteInputStream()
             )
-        )*/
+        )
     }
 }

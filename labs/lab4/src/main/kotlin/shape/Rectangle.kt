@@ -18,11 +18,12 @@ class Rectangle(
         return leftTop.x != rightBottom.x && leftTop.y != rightBottom.y
     }
 
-    override fun draw(canvas: ICanvas): String =
-        canvas.drawLine(leftTop, Point(rightBottom.x, leftTop.y)) +
-                canvas.drawLine(Point(rightBottom.x, leftTop.y), rightBottom) +
-                canvas.drawLine(rightBottom, Point(leftTop.x, rightBottom.y)) +
-                canvas.drawLine(Point(leftTop.x, rightBottom.y), leftTop)
+    override fun draw(canvas: ICanvas) {
+        canvas.drawLine(leftTop, Point(rightBottom.x, leftTop.y))
+        canvas.drawLine(Point(rightBottom.x, leftTop.y), rightBottom)
+        canvas.drawLine(rightBottom, Point(leftTop.x, rightBottom.y))
+        canvas.drawLine(Point(leftTop.x, rightBottom.y), leftTop)
+    }
 
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
@@ -42,3 +43,4 @@ class Rectangle(
         return result
     }
 }
+

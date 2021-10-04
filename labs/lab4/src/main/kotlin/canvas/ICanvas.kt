@@ -5,6 +5,6 @@ import shape.Point
 
 interface ICanvas {
     fun setColor(color: Color)
-    fun drawLine(from: Point, to: Point): String
-    fun drawEllipse(center: Point, majorRadius: Int, minorRadius: Int): String
+    fun drawLine(from: Point, to: Point)
+    fun drawEllipse(center: Point, majorRadius: Int, minorRadius: Int)
 }

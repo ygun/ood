@@ -3,6 +3,8 @@ package shape
 import canvas.Canvas
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertThrows
+import java.io.ByteArrayOutputStream
+import java.io.PrintStream
 import kotlin.test.assertEquals
 
 class TestEllipse {
@@ -16,17 +18,22 @@ class TestEllipse {
 
     @Test
     fun `draw with canvas return ellipse tag`() {
-        val canvas = Canvas()
+        val outputStream = ByteArrayOutputStream();
+        val canvas = Canvas(PrintStream(outputStream, true))
         val ellipse = Ellipse(Color.GREEN, Point(0.0, 0.0), 1, 1)
 
         assertEquals(ellipse.getColor(), Color.GREEN)
         canvas.setColor(ellipse.getColor())
-        assertEquals("<ellipse color=#00FF00 centerX=0.00 centerY=0.00 majorRadius=1 minorRadius=1>\n", ellipse.draw(canvas))
+        ellipse.draw(canvas)
+        assertEquals("<ellipse color=#00FF00 centerX=0.00 centerY=0.00 majorRadius=1 minorRadius=1>\n", outputStream.toString())
+
+        outputStream.reset()
 
         ellipse.setColor(Color.PINK)
-
         assertEquals(ellipse.getColor(), Color.PINK)
         canvas.setColor(ellipse.getColor())
-        assertEquals("<ellipse color=#FFC0CB centerX=0.00 centerY=0.00 majorRadius=1 minorRadius=1>\n", ellipse.draw(canvas))
+
+        ellipse.draw(canvas)
+        assertEquals("<ellipse color=#FFC0CB centerX=0.00 centerY=0.00 majorRadius=1 minorRadius=1>\n", outputStream.toString())
     }
 }

@@ -17,7 +17,9 @@ class Ellipse(
 
     private fun isEllipseValid() = majorRadius > 0 && minorRadius > 0
 
-    override fun draw(canvas: ICanvas) = canvas.drawEllipse(center, majorRadius, minorRadius)
+    override fun draw(canvas: ICanvas) {
+        canvas.drawEllipse(center, majorRadius, minorRadius)
+    }
 
     override fun equals(other: Any?): Boolean {
         if (this === other) return true

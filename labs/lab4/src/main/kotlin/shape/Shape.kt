@@ -10,5 +10,5 @@ abstract class Shape(private var color: Color) {
         this.color = color
     }
 
-    abstract fun draw(canvas: ICanvas): String
+    abstract fun draw(canvas: ICanvas)
 }
