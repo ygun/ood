@@ -37,10 +37,6 @@ class Rectangle(
         return true
     }
 
-    override fun hashCode(): Int {
-        var result = leftTop.hashCode()
-        result = 31 * result + rightBottom.hashCode()
-        return result
-    }
+    override fun hashCode(): Int = "$leftTop $rightBottom".hashCode()
 }
 

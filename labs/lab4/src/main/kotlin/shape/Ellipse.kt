@@ -34,12 +34,5 @@ class Ellipse(
         return true
     }
 
-    override fun hashCode(): Int {
-        var result = center.hashCode()
-        result = 31 * result + majorRadius
-        result = 31 * result + minorRadius
-        return result
-    }
-
-
+    override fun hashCode(): Int = "$center $majorRadius $minorRadius".hashCode()
 }

@@ -56,10 +56,5 @@ class RegularPolygon(
         return true
     }
 
-    override fun hashCode(): Int {
-        var result = center.hashCode()
-        result = 31 * result + radius // cast result to long for avoiding overflow
-        result = 31 * result + vertexCount
-        return result // cast long to Int
-    }
+    override fun hashCode(): Int = "$center $radius $vertexCount".hashCode()
 }

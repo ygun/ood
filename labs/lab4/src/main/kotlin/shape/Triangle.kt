@@ -42,10 +42,5 @@ class Triangle(
         return true
     }
 
-    override fun hashCode(): Int {
-        var result = vertex1.hashCode()
-        result = 31 * result + vertex2.hashCode()
-        result = 31 * result + vertex3.hashCode()
-        return result
-    }
+    override fun hashCode(): Int = "$vertex1 $vertex2 $vertex3".hashCode()
 }
