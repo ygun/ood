@@ -1,10 +1,9 @@
-import command.helper.IHelperCommand
-import util.CommandType.*
 import document.IDocument
 import history.CommandHistory
 import registry.CommandRegistry
 import resource.FileRepository
 import util.CommandType
+import util.CommandType.*
 import java.io.InputStream
 import java.io.PrintStream
 import java.nio.file.Path
@@ -30,7 +29,7 @@ class Application(
             try {
                 line = sc.nextLine()
                 if (line == EXIT) {
-                    fileRepository.clear()
+                    fileRepository.deleteFolder()
                     break
                 }
 
@@ -71,8 +70,8 @@ class Application(
 
     private fun processHelp(output: PrintStream) {
         val commandClass = registry.get(HELP)
-        val commandInstance = commandClass.call()
-        if (commandInstance is IHelperCommand) commandInstance.executeHelper(document, output)
+        val commandInstance = commandClass.call(output)
+        commandInstance.execute(document)
     }
 
     private fun processDeleteItem(args: List<String>) {
@@ -101,8 +100,8 @@ class Application(
 
     private fun processList(output: PrintStream) {
         val commandClass = registry.get(LIST)
-        val commandInstance = commandClass.call()
-        if (commandInstance is IHelperCommand) commandInstance.executeHelper(document, output)
+        val commandInstance = commandClass.call(output)
+        commandInstance.execute(document)
     }
 
     private fun processSetTitle(args: List<String>) {
@@ -118,7 +117,8 @@ class Application(
 
         val commandClass = registry.get(INSERT_IMAGE)
         val position = getPosition(args[1])
-        val commandInstance = commandClass.call(fileRepository, position, args[2].toInt(), args[3].toInt(), Path.of(args[4]))
+        val commandInstance =
+            commandClass.call(fileRepository, position, args[2].toInt(), args[3].toInt(), Path.of(args[4]))
         history.addCommandAndExecute(commandInstance, document)
     }
 

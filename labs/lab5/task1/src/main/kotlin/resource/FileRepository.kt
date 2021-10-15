@@ -28,4 +28,9 @@ class FileRepository(pathToRepository: Path) : IResourceRepository {
         fileByName.forEach { (_, v) -> v.delete() }
         fileByName.clear()
     }
+
+    fun deleteFolder() {
+        clear()
+        File(pathToFolder).delete()
+    }
 }

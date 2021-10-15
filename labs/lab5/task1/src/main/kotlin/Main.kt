@@ -1,12 +1,10 @@
 import command.*
-import command.helper.Help
-import command.helper.List
-import util.CommandType.*
-import command.InsertImage
+import command.List
 import document.Document
 import history.CommandHistory
 import registry.CommandRegistry
 import resource.FileRepository
+import util.CommandType.*
 import java.nio.file.Path
 
 fun main() {
