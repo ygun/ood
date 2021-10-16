@@ -23,7 +23,7 @@ enum class CommandType {
         override fun getCommandWithArgs(): String = "$REPLACE_TEXT <position> <new text>"
     },
     RESIZE_IMAGE {
-        override fun toString(): String = "ReplaceImage"
+        override fun toString(): String = "ResizeImage"
         override fun getCommandWithArgs(): String = "$RESIZE_IMAGE <position> <weight> <height>"
     },
     DELETE_ITEM {
