@@ -82,7 +82,7 @@ class Application(
         val commandClass = store.get(DELETE_ITEM)
         val position = args[1].toInt()
         val commandInstance = commandClass.call(document.getItem(position), position)
-        history.addCommandAndExecute(commandInstance, document)
+        history.addAndExecuteCommand(commandInstance, document)
     }
 
     private fun processResizeImage(args: List<String>) {
@@ -92,7 +92,7 @@ class Application(
         val position = args[1].toInt()
         val image = document.getItem(position).image
         val commandInstance = commandClass.call(image, args[2].toInt(), args[3].toInt())
-        history.addCommandAndExecute(commandInstance, document)
+        history.addAndExecuteCommand(commandInstance, document)
     }
 
     private fun processReplaceText(args: List<String>) {
@@ -102,7 +102,7 @@ class Application(
         val position = args[1].toInt()
         val paragraph = document.getItem(position).paragraph
         val commandInstance = commandClass.call(paragraph, args[2])
-        history.addCommandAndExecute(commandInstance, document)
+        history.addAndExecuteCommand(commandInstance, document)
     }
 
     private fun processList(output: PrintStream) {
@@ -116,7 +116,7 @@ class Application(
 
         val commandClass = store.get(SET_TITLE)
         val commandInstance = commandClass.call(args[1], document.getTitle())
-        history.addCommandAndExecute(commandInstance, document)
+        history.addAndExecuteCommand(commandInstance, document)
     }
 
     private fun processInsertImage(args: List<String>) {
@@ -126,7 +126,7 @@ class Application(
         val position = getPositionOfItem(args[1])
         val commandInstance =
             commandClass.call(fileRepository, position, args[2].toInt(), args[3].toInt(), Path.of(args[4]))
-        history.addCommandAndExecute(commandInstance, document)
+        history.addAndExecuteCommand(commandInstance, document)
     }
 
     private fun processInsertParagraph(args: List<String>) {
@@ -135,7 +135,7 @@ class Application(
         val commandClass = store.get(INSERT_PARAGRAPH)
         val position = getPositionOfItem(args[1])
         val commandInstance = commandClass.call(position, args[2])
-        history.addCommandAndExecute(commandInstance, document)
+        history.addAndExecuteCommand(commandInstance, document)
     }
 
     private fun getPositionOfItem(arg: String) = if (arg != "end") arg.toInt() else null

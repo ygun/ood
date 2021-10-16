@@ -1,7 +1,6 @@
 package history
 
 import command.InsertParagraph
-import command.ResizeImage
 import document.Document
 import document.element.paragraph.Paragraph
 import document.item.DocumentItem
@@ -18,11 +17,11 @@ class TestCommandHistory {
 
         val commandHistory = CommandHistory()
 
-        commandHistory.addCommandAndExecute(insertParagraph, document)
+        commandHistory.addAndExecuteCommand(insertParagraph, document)
         assertEquals(1, document.getItemsCount())
         assertEquals(DocumentItem(null, Paragraph("text")), document.getItem(0))
 
-        commandHistory.addCommandAndExecute(insertParagraph, document)
+        commandHistory.addAndExecuteCommand(insertParagraph, document)
         assertEquals(2, document.getItemsCount())
         assertEquals(DocumentItem(null, Paragraph("text")), document.getItem(1))
     }
@@ -35,11 +34,11 @@ class TestCommandHistory {
 
         val commandHistory = CommandHistory()
 
-        commandHistory.addCommandAndExecute(insertParagraph, document)
+        commandHistory.addAndExecuteCommand(insertParagraph, document)
         assertEquals(1, document.getItemsCount())
         assertEquals(DocumentItem(null, Paragraph("text")), document.getItem(0))
 
-        commandHistory.addCommandAndExecute(insertParagraph, document)
+        commandHistory.addAndExecuteCommand(insertParagraph, document)
         assertEquals(2, document.getItemsCount())
         assertEquals(DocumentItem(null, Paragraph("text")), document.getItem(1))
 
@@ -59,11 +58,11 @@ class TestCommandHistory {
 
         val commandHistory = CommandHistory()
 
-        commandHistory.addCommandAndExecute(insertParagraph, document)
+        commandHistory.addAndExecuteCommand(insertParagraph, document)
         assertEquals(1, document.getItemsCount())
         assertEquals(DocumentItem(null, Paragraph("text")), document.getItem(0))
 
-        commandHistory.addCommandAndExecute(insertParagraph, document)
+        commandHistory.addAndExecuteCommand(insertParagraph, document)
         assertEquals(2, document.getItemsCount())
         assertEquals(DocumentItem(null, Paragraph("text")), document.getItem(1))
 
@@ -93,7 +92,7 @@ class TestCommandHistory {
         assertThrows<RuntimeException> { commandHistory.undo(document) }
 
         val insertParagraph = InsertParagraph(null, "text")
-        commandHistory.addCommandAndExecute(insertParagraph, document)
+        commandHistory.addAndExecuteCommand(insertParagraph, document)
         commandHistory.undo(document)
 
         assert(commandHistory.atBottom())
@@ -110,7 +109,7 @@ class TestCommandHistory {
         assertThrows<RuntimeException> { commandHistory.redo(document) }
 
         val insertParagraph = InsertParagraph(null, "text")
-        commandHistory.addCommandAndExecute(insertParagraph, document)
+        commandHistory.addAndExecuteCommand(insertParagraph, document)
 
         assert(commandHistory.atTop())
         assertThrows<RuntimeException> { commandHistory.redo(document) }
@@ -124,11 +123,11 @@ class TestCommandHistory {
 
         val commandHistory = CommandHistory()
 
-        commandHistory.addCommandAndExecute(insertParagraph, document)
+        commandHistory.addAndExecuteCommand(insertParagraph, document)
         assertEquals(1, document.getItemsCount())
         assertEquals(DocumentItem(null, Paragraph("text")), document.getItem(0))
 
-        commandHistory.addCommandAndExecute(insertParagraph, document)
+        commandHistory.addAndExecuteCommand(insertParagraph, document)
         assertEquals(2, document.getItemsCount())
         assertEquals(DocumentItem(null, Paragraph("text")), document.getItem(1))
 
@@ -141,7 +140,7 @@ class TestCommandHistory {
 
         val changeBranch = InsertParagraph(null, "change branch")
 
-        commandHistory.addCommandAndExecute(changeBranch, document)
+        commandHistory.addAndExecuteCommand(changeBranch, document)
         assertEquals(1, document.getItemsCount())
         assertEquals(DocumentItem(null, Paragraph("change branch")), document.getItem(0))
 

@@ -12,7 +12,7 @@ class CommandHistory : IHistory {
     private val commands: MutableList<ICommand> = mutableListOf()
     private var currIndex: Int = 0
 
-    override fun addCommandAndExecute(command: ICommand, document: IDocument) {
+    override fun addAndExecuteCommand(command: ICommand, document: IDocument) {
         if (!atTop() && commands.isNotEmpty()) {
             var i = commands.size - 1
             while (i >= currIndex) {

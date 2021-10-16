@@ -4,7 +4,7 @@ import command.ICommand
 import document.IDocument
 
 interface IHistory {
-    fun addCommandAndExecute(command: ICommand, document: IDocument)
+    fun addAndExecuteCommand(command: ICommand, document: IDocument)
 
     fun undo(document: IDocument)
     fun redo(document: IDocument)
