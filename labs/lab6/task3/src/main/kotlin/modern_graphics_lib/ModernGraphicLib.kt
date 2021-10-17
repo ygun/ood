@@ -7,18 +7,18 @@ class Point(
     val y: Int
 ) {}
 
-const val DEFAULT_ALPHA_CHANNEL = 1.0f
+const val DEFAULT_ALPHA_CHANNEL = 1
 
 class RGBAColor(
     val r: Int,
     val g: Int,
     val b: Int,
-    val a: Float = DEFAULT_ALPHA_CHANNEL
+    val a: Int = DEFAULT_ALPHA_CHANNEL
 ) {
     override fun toString(): String = "RGBAColor(r=$r, g=$g, b=$b, a=$a)"
 }
 
-val BLACK_RGBA = RGBAColor(0, 0, 0, 1f)
+val BLACK_RGBA = RGBAColor(0, 0, 0, 1)
 
 class ModernGraphicsRenderer(private val out: PrintStream = System.out) : AutoCloseable {
 
@@ -36,7 +36,6 @@ class ModernGraphicsRenderer(private val out: PrintStream = System.out) : AutoCl
         if (!isDrawing) {
             throw IllegalAccessException("drawLine is allowed between beginDraw()/endDraw() only")
         }
-        println(color.r)
         out.println(
             "<line fromX=${start.x} fromY=${start.y} toX=${end.x} toY=${end.y}>\n" +
                     "  <color r=${color.r} g=${color.g} b=${color.b} a=${color.a} />\n" +

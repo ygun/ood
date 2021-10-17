@@ -41,15 +41,4 @@ class TestGraphicLibAdapter {
             os.toString()
         )
     }
-
-    @Test
-    fun `setColor`() {
-        val os = ByteArrayOutputStream()
-        val ps = PrintStream(os)
-
-        val renderer = ModernGraphicsRenderer(ps)
-        val adapter = GraphicLibAdapter(renderer)
-
-        adapter.setColor(0x6c8c93u)
-    }
 }

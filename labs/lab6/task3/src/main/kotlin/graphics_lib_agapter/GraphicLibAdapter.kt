@@ -4,6 +4,10 @@ import graphics_lib.ICanvas
 import modern_graphics_lib.ModernGraphicsRenderer
 import modern_graphics_lib.Point
 import modern_graphics_lib.RGBAColor
+import java.awt.Color
+
+
+
 
 open class Coordinates(
     private var x: Int,
@@ -24,18 +28,14 @@ class GraphicLibAdapter(
     }
 
     override fun setColor(color: UInt) {
-        val converter: (UInt) -> Float = { it: UInt -> ((it and 255u) / 255u).toFloat() }
-        val r = ((color shr 16 and 255u) / (255u)).toFloat()
-        val g = ((color shr 8 and 255u) / (255u)).toFloat()
-        println(r)
-        println(g)
-        val teest = (color shr 16)
+        val convertedColor: Color = Color.decode(color.toString())
 
-    /*this.color = RGBAColor(
-            converter((color / 0x10000u).toInt()),
-            converter((color / 0x100u % 0x100u).toInt()),
-            converter((color % 0x100u).toInt())
-        )*/
+        this.color = RGBAColor(
+            convertedColor.red,
+            convertedColor.green,
+            convertedColor.blue,
+            convertedColor.alpha
+        )
     }
 
     override fun moveTo(x: Int, y: Int) {
