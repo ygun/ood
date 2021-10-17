@@ -1,0 +1,10 @@
+<draw>
+<line fromX=10 fromY=15 toX=100 toY=200>
+<line fromX=100 fromY=200 toX=150 toY=250>
+<line fromX=150 fromY=250 toX=10 toY=15>
+
+<line fromX=30 fromY=40 toX=48 toY=40>
+<line fromX=48 fromY=40 toX=48 toY=16>
+<line fromX=48 fromY=16 toX=30 toY=16>
+<line fromX=30 fromY=16 toX=30 toY=40>
+</draw>

@@ -1,0 +1,24 @@
+<draw>
+<line fromX=10 fromY=15 toX=100 toY=200>
+  <color r=0 g=0 b=0 a=1.0 />
+</line>
+<line fromX=100 fromY=200 toX=150 toY=250>
+  <color r=0 g=0 b=0 a=1.0 />
+</line>
+<line fromX=150 fromY=250 toX=10 toY=15>
+  <color r=0 g=0 b=0 a=1.0 />
+</line>
+
+<line fromX=30 fromY=40 toX=48 toY=40>
+  <color r=0 g=0 b=0 a=1.0 />
+</line>
+<line fromX=48 fromY=40 toX=48 toY=16>
+  <color r=0 g=0 b=0 a=1.0 />
+</line>
+<line fromX=48 fromY=16 toX=30 toY=16>
+  <color r=0 g=0 b=0 a=1.0 />
+</line>
+<line fromX=30 fromY=16 toX=30 toY=40>
+  <color r=0 g=0 b=0 a=1.0 />
+</line>
+</draw>

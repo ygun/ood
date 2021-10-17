@@ -1,0 +1,3 @@
+<draw>
+<line fromX=0 fromY=0 toX=1 toY=1>
+</draw>

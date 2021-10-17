@@ -1,0 +1,17 @@
+setColor 134928
+moveTo (10, 15)
+lineTo (100, 200)
+moveTo (100, 200)
+lineTo (150, 250)
+moveTo (150, 250)
+lineTo (10, 15)
+
+setColor 8781850
+moveTo (30, 40)
+lineTo (48, 40)
+moveTo (48, 40)
+lineTo (48, 16)
+moveTo (48, 16)
+lineTo (30, 16)
+moveTo (30, 16)
+lineTo (30, 40)
