@@ -12,8 +12,6 @@ class TestReplaceText {
     fun `execute and revert change text`() {
         val document = Document()
 
-        val image = Image(Path.of("/"), 200, 200)
-
         val paragraph = Paragraph("test")
         val replaceText = ReplaceText(paragraph, "new text")
         replaceText.execute(document)

@@ -63,7 +63,9 @@ class Application(
     private fun processSave(args: List<String>) {
         ensureCountArgsCorrect(args, 1, SAVE)
 
-        document.save(Path.of(args[1]))
+        val commandClass = store.get(SAVE)
+        val commandInstance = commandClass.call(Path.of(args[1]))
+        commandInstance.execute(document)
     }
 
     private fun processRedo() = document.redo()

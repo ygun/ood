@@ -11,7 +11,7 @@ class ResizeImage(
 
     init {
         if (!isSizeValid()) {
-            throw IllegalArgumentException("Not valid size of image. Size cannot be more than 10000")
+            throw IllegalArgumentException("Not valid size of image. Size cannot be more than 10000 and less than 1")
         }
     }
 

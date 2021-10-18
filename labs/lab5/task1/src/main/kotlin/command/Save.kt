@@ -1,15 +1,13 @@
 package command
 
 import document.IDocument
+import java.nio.file.Path
 
-class Save : ICommand {
-    override fun execute(document: IDocument) {
-        TODO("Not yet implemented")
-    }
+class Save(private val path: Path) : ICommand {
 
-    override fun revert(document: IDocument) {
-        TODO("Not yet implemented")
-    }
+    override fun execute(document: IDocument) = document.save(path)
+
+    override fun revert(document: IDocument) = Unit
 
     override fun dispose() = Unit
 }
