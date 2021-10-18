@@ -13,6 +13,4 @@ class ReplaceText(
     override fun execute(document: IDocument) = paragraph.setText(newText)
 
     override fun revert(document: IDocument) = paragraph.setText(oldText)
-
-    override fun dispose() = Unit
 }

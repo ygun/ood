@@ -17,6 +17,4 @@ class InsertParagraph(
             else -> document.deleteItem(document.getItemsCount() - 1)
         }
     }
-
-    override fun dispose() = Unit
 }

@@ -23,6 +23,4 @@ class ResizeImage(
     override fun execute(document: IDocument) = image.resize(newWidth, newHeight)
 
     override fun revert(document: IDocument) = image.resize(oldWidth, oldHeight)
-
-    override fun dispose() = Unit
 }

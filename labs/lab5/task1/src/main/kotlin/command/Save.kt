@@ -8,6 +8,4 @@ class Save(private val path: Path) : ICommand {
     override fun execute(document: IDocument) = document.save(path)
 
     override fun revert(document: IDocument) = Unit
-
-    override fun dispose() = Unit
 }

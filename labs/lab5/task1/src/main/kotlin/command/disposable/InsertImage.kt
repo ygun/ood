@@ -1,10 +1,12 @@
-package command
+package command.disposable
 
 import command.ICommand
 import document.IDocument
 import resource.IResourceRepository
+import util.TEMP_DIRECTORY
 import java.io.File
 import java.nio.file.Path
+import kotlin.io.path.name
 
 class InsertImage(
     private val repository: IResourceRepository,
@@ -12,7 +14,7 @@ class InsertImage(
     private val width: Int,
     private val height: Int,
     private val path: Path
-) : ICommand {
+) : ICommand, IDisposable {
 
     override fun execute(document: IDocument) {
         document.insertImage(path, width, height, position)
@@ -27,6 +29,7 @@ class InsertImage(
     }
 
     override fun dispose() {
-        repository.delete(File(path.toUri()))
+        val tempPath = TEMP_DIRECTORY + "/" + path.name
+        repository.delete(File(tempPath))
     }
 }

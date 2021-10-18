@@ -30,6 +30,4 @@ class DeleteItem(
                 )
         }
     }
-
-    override fun dispose() = Unit
 }

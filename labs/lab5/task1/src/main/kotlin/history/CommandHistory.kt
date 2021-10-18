@@ -1,6 +1,7 @@
 package history
 
 import command.ICommand
+import command.disposable.IDisposable
 import document.IDocument
 
 class CommandHistory : IHistory {
@@ -16,7 +17,8 @@ class CommandHistory : IHistory {
         if (!atTop() && commands.isNotEmpty()) {
             var i = commands.size - 1
             while (i >= currIndex) {
-                commands[i].dispose()
+                val currCommand = commands[i]
+                if (currCommand is IDisposable) currCommand.dispose()
                 commands.removeAt(i)
                 i--
             }

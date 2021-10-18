@@ -1,6 +1,6 @@
 package command.insert_image
 
-import command.InsertImage
+import command.disposable.InsertImage
 import document.Document
 import document.element.image.Image
 import document.item.DocumentItem

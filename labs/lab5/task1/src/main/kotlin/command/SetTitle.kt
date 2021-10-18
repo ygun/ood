@@ -10,6 +10,4 @@ class SetTitle(
     override fun execute(document: IDocument) = document.setTitle(newTitle)
 
     override fun revert(document: IDocument) = document.setTitle(oldTitle)
-
-    override fun dispose() = Unit
 }

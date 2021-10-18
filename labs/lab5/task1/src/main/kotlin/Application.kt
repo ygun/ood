@@ -73,9 +73,10 @@ class Application(
     private fun processUndo() = document.undo()
 
     private fun processHelp(output: PrintStream) {
-        val commandClass = store.get(HELP)
-        val commandInstance = commandClass.call(output)
-        commandInstance.execute(document)
+        output.println("List of all commands and their arguments:")
+        CommandType.values().forEach {
+            println("\t" + it.getCommandWithArgs())
+        }
     }
 
     private fun processDeleteItem(args: List<String>) {
@@ -108,9 +109,10 @@ class Application(
     }
 
     private fun processList(output: PrintStream) {
-        val commandClass = store.get(LIST)
-        val commandInstance = commandClass.call(output)
-        commandInstance.execute(document)
+        output.println("Title: ${document.getTitle()}")
+        (0 until document.getItemsCount()).forEach {
+            output.println("\t$it: ${document.getItem(it)}")
+        }
     }
 
     private fun processSetTitle(args: List<String>) {
