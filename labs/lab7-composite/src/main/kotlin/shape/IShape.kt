@@ -1,6 +1,6 @@
 package shape
 
-import canvas.Canvas
+import canvas.ICanvas
 import shape.frame.Frame
 import shape.style.Fill
 import shape.style.Stroke
@@ -11,12 +11,12 @@ interface IShape {
     fun setFrame(frame: Frame)
 
     fun getFill(): Fill?
-    fun setFill(fill: Fill?)
+    fun setFill(fill: Fill)
 
     fun getStroke(): Stroke?
-    fun setStroke(stroke: Stroke?)
+    fun setStroke(stroke: Stroke)
 
-    fun draw(canvas: Canvas)
+    fun draw(canvas: ICanvas)
 
     fun getAsSvg(): String
 }

@@ -1,39 +1,33 @@
 package shape
 
-import shape.style.BLACK_FILL
+import canvas.ICanvas
 import shape.style.BLACK_STROKE
 import shape.style.Fill
 import shape.style.Stroke
+import shape.style.WHITE_FILL
 
 abstract class Shape(
-    private var fill: Fill?,
-    private var stroke: Stroke?
+    private var fill: Fill? = WHITE_FILL,
+    private var stroke: Stroke? = BLACK_STROKE
 ) : IShape {
 
     override fun getFill() = fill
-    override fun setFill(fill: Fill?) {
+    override fun setFill(fill: Fill) {
         this.fill = fill
     }
 
     override fun getStroke() = stroke
-    override fun setStroke(stroke: Stroke?) {
+    override fun setStroke(stroke: Stroke) {
         this.stroke = stroke
     }
 
 
+    override fun draw(canvas: ICanvas) = canvas.draw(this)
+
+
     fun getStyleSvg(): String = getFillSvg() + " " + getStrokeSvg()
 
-    private fun getFillSvg(): String {
-        return when {
-            fill != null -> fill!!.svgStyle()
-            else -> BLACK_FILL.svgStyle()
-        }
-    }
+    private fun getFillSvg(): String = fill?.svgStyle() ?: ""
 
-    private fun getStrokeSvg(): String {
-        return when {
-            stroke != null -> stroke!!.svgStyle()
-            else -> BLACK_STROKE.svgStyle()
-        }
-    }
+    private fun getStrokeSvg(): String = stroke?.svgStyle() ?: ""
 }
