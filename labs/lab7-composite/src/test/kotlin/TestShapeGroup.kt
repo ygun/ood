@@ -122,19 +122,17 @@ class TestShapeGroup {
         assertEquals(1, shapeGroup.getShapesCount())
         assertEquals(DEFAULT_RECTANGLE, shapeGroup.getShape(0))
 
-        assertEquals("Frame(leftTop=Point(x=0.0, y=0.0), width=100.0, height=100.0)", shapeGroup.getFrame().toString())
-
         shapeGroup.insertShape(DEFAULT_ELLIPSE, 0)
         assertEquals(2, shapeGroup.getShapesCount())
         assertEquals(DEFAULT_ELLIPSE, shapeGroup.getShape(0))
 
-        assertEquals("Frame(leftTop=Point(x=0.0, y=0.0), width=550.0, height=550.0)", shapeGroup.getFrame().toString())
+        assertEquals("Frame(leftTop=Point(x=0.0, y=0.0), width=700.0, height=700.0)", shapeGroup.getFrame().toString())
 
         shapeGroup.insertShape(ELLIPSE_WITH_STYLE)
         assertEquals(3, shapeGroup.getShapesCount())
         assertEquals(ELLIPSE_WITH_STYLE, shapeGroup.getShape(2))
 
-        assertEquals("Frame(leftTop=Point(x=0.0, y=0.0), width=550.0, height=550.0)", shapeGroup.getFrame().toString())
+        assertEquals("Frame(leftTop=Point(x=0.0, y=0.0), width=700.0, height=700.0)", shapeGroup.getFrame().toString())
     }
 
     @Test
