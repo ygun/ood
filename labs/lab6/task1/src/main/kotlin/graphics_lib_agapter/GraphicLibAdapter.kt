@@ -13,7 +13,7 @@ open class Coordinates(
 
 class GraphicLibAdapter(
     private val renderer: ModernGraphicsRenderer
-) : ICanvas {
+) : ICanvas, AutoCloseable {
 
     private var coordinates: Coordinates? = null
 
@@ -31,4 +31,6 @@ class GraphicLibAdapter(
             Point(x, y)
         )
     }
+
+    override fun close() = renderer.close()
 }

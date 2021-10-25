@@ -26,10 +26,10 @@ fun paintPictureOnCanvas(output: PrintStream = System.out) {
 
 fun paintPictureOnModernGraphicsRenderer(output: PrintStream = System.out) {
     ModernGraphicsRenderer(output).use {
-        val adapter = GraphicLibAdapter(it)
+        GraphicLibAdapter(it).use { adapter ->
+            val painter = CanvasPainter(adapter)
 
-        val painter = CanvasPainter(adapter)
-
-        paintPicture(painter, output)
+            paintPicture(painter, output)
+        }
     }
 }

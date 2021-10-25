@@ -18,7 +18,7 @@ open class Coordinates(
 
 class GraphicLibAdapter(
     private val renderer: ModernGraphicsRenderer
-) : ICanvas {
+) : ICanvas, AutoCloseable {
 
     private var coordinates: Coordinates? = null
     private var color: RGBAColor? = null
@@ -55,4 +55,6 @@ class GraphicLibAdapter(
             )
         }
     }
+
+    override fun close() = renderer.close()
 }
