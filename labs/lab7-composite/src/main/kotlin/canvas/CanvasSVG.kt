@@ -53,7 +53,6 @@ class CanvasSVG(private val output: PrintStream) : ICanvas, AutoCloseable {
     override fun fillEllipse(ellipse: Ellipse) = ellipse.setFill(Fill(fillColor))
 
     override fun drawGroup(shapes: List<IShape>, styleStr: String) {
-        println(styleStr)
         output.println("<g $styleStr >")
         shapes.forEach {
             output.print("\t")
