@@ -1,5 +1,6 @@
 package shape
 
+import canvas.ICanvas
 import shape.frame.Frame
 import shape.frame.Point
 import shape.style.BLACK_STROKE
@@ -26,6 +27,5 @@ class Ellipse(
         radiusY = frame.height / 2
     }
 
-    override fun getAsSvg(): String =
-        "<ellipse cx=\"${center.x}\" cy=\"${center.y}\" rx=\"$radiusX\" ry=\"$radiusY\" ${getStyleSvg()}/>"
+    override fun draw(canvas: ICanvas) = canvas.drawEllipse(center, radiusX, radiusY, getStyle())
 }

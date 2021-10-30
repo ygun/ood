@@ -35,7 +35,7 @@ class Slide(
 
     override fun draw(canvas: ICanvas) {
         canvas.use {
-            shapes.forEach(it::draw)
+            shapes.forEach { shape -> shape.draw(it) }
         }
     }
 

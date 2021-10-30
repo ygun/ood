@@ -5,5 +5,5 @@ class Stroke(
     var width: Int,
     var isEnable: Boolean = true
 ) : Style {
-    override fun svgStyle(): String = "stroke=\"$color\" stroke-width=\"$width\""
+    override fun getStyle(): String = "stroke=\"$color\" stroke-width=\"$width\""
 }

@@ -1,5 +1,6 @@
 package shape.group
 
+import canvas.ICanvas
 import shape.IShape
 import shape.Shape
 import shape.frame.Frame
@@ -8,19 +9,23 @@ import shape.style.BLACK_STROKE
 import shape.style.Fill
 import shape.style.Stroke
 import shape.style.WHITE_FILL
+import java.util.*
 import kotlin.math.max
 import kotlin.math.min
 
 class ShapeGroup(
     fill: Fill = WHITE_FILL,
     stroke: Stroke = BLACK_STROKE
-) : IShapeGroup, Shape(fill, stroke) {
+) : IShapeGroup, Shape(fill, stroke), Comparable<IShapeGroup> {
 
     private val shapes = mutableListOf<IShape>()
 
     override fun getShapesCount(): Int = shapes.size
 
     override fun insertShape(shape: IShape, position: Int) {
+        if (shape is IShapeGroup && isNestedShapeGroup(shape)) {
+            throw IllegalArgumentException("Shape: $shape, is nested")
+        }
         if (position == Int.MAX_VALUE) {
             shapes.add(shape)
             return
@@ -39,10 +44,6 @@ class ShapeGroup(
     override fun removeShape(position: Int) {
         ensurePositionIsValid(position)
         shapes.removeAt(position)
-    }
-
-    private fun ensurePositionIsValid(position: Int) {
-        if (position < 0 || position >= shapes.size) throw IllegalArgumentException("Position($position) is out of range")
     }
 
     override fun getFrame(): Frame? {
@@ -93,9 +94,57 @@ class ShapeGroup(
         }
     }
 
-    override fun getAsSvg(): String {
-        var shapesAsSvg = ""
-        shapes.forEach { shapesAsSvg += "  " + it.getAsSvg() + "\n" }
-        return "<g ${getStyleSvg()} >\n" + shapesAsSvg + "</g>"
+    override fun draw(canvas: ICanvas) = canvas.drawGroup(shapes, getStyle())
+
+    override fun isNestedShapeGroup(insertedGroup: IShapeGroup): Boolean {
+        val setShapes = getNestedShapeGroups()
+        val insertedSetShapes = insertedGroup.getNestedShapeGroups()
+        return when {
+            setShapes.contains(insertedGroup) || insertedSetShapes.contains(this) -> true
+            else -> false
+        }
+    }
+
+    override fun getNestedShapeGroups(): Set<ShapeGroup> {
+        val setShapes = TreeSet<ShapeGroup>()
+        shapes.forEach { shape ->
+            if (shape is ShapeGroup) {
+                setShapes.add(shape)
+                setShapes.addAll(shape.getNestedShapeGroups())
+            }
+        }
+        return setShapes
+    }
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (javaClass != other?.javaClass) return false
+
+        other as ShapeGroup
+
+        if (shapes != other.shapes) return false
+
+        return true
+    }
+
+    override fun hashCode(): Int = shapes.hashCode()
+
+    override fun toString(): String = "ShapeGroup(shapes=$shapes)"
+
+    override fun compareTo(other: IShapeGroup): Int {
+        if (this == other) {
+            return 0
+        }
+        return when {
+            getShapesCount() > other.getShapesCount() -> 1
+            else -> -1
+        }
+    }
+
+    private fun ensurePositionIsValid(position: Int) {
+        if (position < 0)
+            throw IllegalArgumentException("Position($position) cannot be less than zero")
+        if (position >= shapes.size)
+            throw IllegalArgumentException("Position($position) is out of range")
     }
 }

@@ -1,6 +1,5 @@
 package shape
 
-import canvas.ICanvas
 import shape.style.BLACK_STROKE
 import shape.style.Fill
 import shape.style.Stroke
@@ -21,13 +20,15 @@ abstract class Shape(
         this.stroke = stroke
     }
 
+    override fun getStyle() = getFillStyle() + " " + getStrokeStyle()
 
-    override fun draw(canvas: ICanvas) = canvas.draw(this)
+    private fun getFillStyle() = when (fill) {
+        null -> ""
+        else -> fill!!.getStyle()
+    }
 
-
-    fun getStyleSvg(): String = getFillSvg() + " " + getStrokeSvg()
-
-    private fun getFillSvg(): String = fill?.svgStyle() ?: ""
-
-    private fun getStrokeSvg(): String = stroke?.svgStyle() ?: ""
+    private fun getStrokeStyle() = when (stroke) {
+        null -> ""
+        else -> stroke!!.getStyle()
+    }
 }

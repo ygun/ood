@@ -18,5 +18,5 @@ interface IShape {
 
     fun draw(canvas: ICanvas)
 
-    fun getAsSvg(): String
+    fun getStyle(): String
 }

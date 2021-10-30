@@ -1,5 +1,6 @@
 package shape
 
+import canvas.ICanvas
 import shape.frame.Frame
 import shape.frame.Point
 import shape.style.BLACK_STROKE
@@ -23,6 +24,5 @@ class Rectangle(
         height = frame.height
     }
 
-    override fun getAsSvg(): String =
-        "<rect x=\"${leftTop.x}\" y=\"${leftTop.y}\" width=\"$weight\" height=\"$height\" ${getStyleSvg()}/>"
+    override fun draw(canvas: ICanvas) = canvas.drawRectangle(leftTop, weight, height, getStyle())
 }

@@ -1,10 +1,11 @@
 import org.junit.jupiter.api.Test
+import org.junit.jupiter.api.assertDoesNotThrow
 import org.junit.jupiter.api.assertThrows
 import shape.frame.Frame
 import shape.frame.Point
+import shape.group.IShapeGroup
 import shape.group.ShapeGroup
 import kotlin.test.assertEquals
-import kotlin.test.assertFalse
 
 class TestShapeGroup {
     @Test
@@ -162,5 +163,71 @@ class TestShapeGroup {
 
         assert(prevFirstFrame != shapeGroup.getShape(0).getFrame())
         assert(prevSecondFrame != shapeGroup.getShape(1).getFrame())
+    }
+
+    @Test
+    fun `insertShape with intersected groups throw IllegalArgumentException`() {
+        val shapeGroup1 = ShapeGroup()
+        shapeGroup1.insertShape(DEFAULT_RECTANGLE)
+        shapeGroup1.insertShape(DEFAULT_RECTANGLE)
+
+        val shapeGroup2 = ShapeGroup()
+        shapeGroup2.insertShape(DEFAULT_ELLIPSE)
+        shapeGroup2.insertShape(DEFAULT_ELLIPSE)
+
+        shapeGroup1.insertShape(shapeGroup2, 0)
+        assertEquals(3, shapeGroup1.getShapesCount())
+
+        val secondShape = shapeGroup1.getShape(0)
+        assertThrows<IllegalArgumentException> { if (secondShape is IShapeGroup) secondShape.insertShape(shapeGroup1) }
+    }
+
+    @Test
+    fun `insertShape with intersected groups on different nested levels throw IllegalArgumentException`() {
+        val shapeGroup1 = ShapeGroup()
+        shapeGroup1.insertShape(DEFAULT_RECTANGLE)
+        shapeGroup1.insertShape(DEFAULT_RECTANGLE)
+
+        val shapeGroup2 = ShapeGroup()
+        shapeGroup2.insertShape(DEFAULT_ELLIPSE)
+        shapeGroup2.insertShape(DEFAULT_ELLIPSE)
+
+        val shapeGroup3 = ShapeGroup()
+        shapeGroup3.insertShape(shapeGroup2)
+        shapeGroup3.insertShape(DEFAULT_RECTANGLE)
+
+        shapeGroup1.insertShape(shapeGroup3, 0)
+        assertEquals(3, shapeGroup1.getShapesCount())
+
+        val thirdShape = shapeGroup1.getShape(0)
+        if (thirdShape is IShapeGroup) {
+            val secondShape = thirdShape.getShape(0)
+            assertThrows<IllegalArgumentException> { if (secondShape is IShapeGroup) secondShape.insertShape(shapeGroup1) }
+        }
+    }
+
+    @Test
+    fun `able to insertShape in one group`() {
+        val shapeGroup1 = ShapeGroup()
+        shapeGroup1.insertShape(DEFAULT_RECTANGLE)
+        shapeGroup1.insertShape(DEFAULT_RECTANGLE)
+
+        val shapeGroup2 = ShapeGroup()
+        shapeGroup2.insertShape(DEFAULT_ELLIPSE)
+        shapeGroup2.insertShape(DEFAULT_ELLIPSE)
+
+        val shapeGroup3 = ShapeGroup()
+        shapeGroup3.insertShape(shapeGroup1)
+        shapeGroup3.insertShape(shapeGroup2)
+        shapeGroup3.insertShape(DEFAULT_RECTANGLE)
+
+        val firstGr = shapeGroup3.getShape(0)
+        val secondGr = shapeGroup3.getShape(1)
+
+        assertDoesNotThrow {
+            if (firstGr is IShapeGroup) {
+                firstGr.insertShape(secondGr)
+            }
+        }
     }
 }
