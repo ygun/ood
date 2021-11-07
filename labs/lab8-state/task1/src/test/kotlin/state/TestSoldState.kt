@@ -15,7 +15,6 @@ class TestSoldState {
         val prevBallsCount = machine.getBallCount()
 
         val soldState = SoldState(machine)
-        println(machine.toString())
 
         soldState.insertQuarter()
         assertTrue(machine.getState() is SoldState)
@@ -31,7 +30,6 @@ class TestSoldState {
         val prevBallsCount = machine.getBallCount()
 
         val soldState = SoldState(machine)
-        println(machine.toString())
 
         soldState.ejectQuarter()
         assertTrue(machine.getState() is SoldState)
@@ -47,7 +45,6 @@ class TestSoldState {
         val prevBallsCount = machine.getBallCount()
 
         val soldState = SoldState(machine)
-        println(machine.toString())
 
         soldState.turnCrank()
         assertTrue(machine.getState() is SoldState)
@@ -63,7 +60,6 @@ class TestSoldState {
         val prevBallsCount = machine.getBallCount()
 
         val soldState = SoldState(machine)
-        println(machine.toString())
 
         soldState.dispense()
         assertTrue(machine.getState() is SoldOutState)
@@ -79,7 +75,6 @@ class TestSoldState {
         val prevBallsCount = machine.getBallCount()
 
         val soldState = SoldState(machine)
-        println(machine.toString())
 
         soldState.dispense()
         assertTrue(machine.getState() is NoQuarterState)

@@ -25,7 +25,6 @@ class TestNoQuarterState {
         val prevBallsCount = machine.getBallCount()
 
         val noQuarterState = NoQuarterState(machine)
-        println(machine.toString())
 
         noQuarterState.ejectQuarter()
         assertTrue(machine.getState() is NoQuarterState)
@@ -40,7 +39,6 @@ class TestNoQuarterState {
         val prevBallsCount = machine.getBallCount()
 
         val noQuarterState = NoQuarterState(machine)
-        println(machine.toString())
 
         noQuarterState.turnCrank()
         assertTrue(machine.getState() is NoQuarterState)
@@ -55,7 +53,6 @@ class TestNoQuarterState {
         val prevBallsCount = machine.getBallCount()
 
         val noQuarterState = NoQuarterState(machine)
-        println(machine.toString())
 
         noQuarterState.dispense()
         assertTrue(machine.getState() is NoQuarterState)
