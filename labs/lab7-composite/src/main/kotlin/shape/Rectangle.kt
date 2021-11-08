@@ -3,17 +3,15 @@ package shape
 import canvas.ICanvas
 import shape.frame.Frame
 import shape.frame.Point
-import shape.style.BLACK_STROKE
 import shape.style.Fill
 import shape.style.Stroke
-import shape.style.WHITE_FILL
 
 class Rectangle(
     private var leftTop: Point,
     private var weight: Double,
     private var height: Double,
-    fill: Fill? = WHITE_FILL,
-    stroke: Stroke? = BLACK_STROKE
+    fill: Fill = Fill(),
+    stroke: Stroke = Stroke()
 ) : Shape(fill, stroke) {
 
     override fun getFrame() = Frame(leftTop, weight, height)
@@ -24,5 +22,5 @@ class Rectangle(
         height = frame.height
     }
 
-    override fun draw(canvas: ICanvas) = canvas.drawRectangle(leftTop, weight, height, getStyle())
+    override fun draw(canvas: ICanvas) = canvas.drawRectangle(leftTop, weight, height, getFill(), getStroke())
 }

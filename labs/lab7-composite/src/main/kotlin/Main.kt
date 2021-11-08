@@ -5,9 +5,7 @@ import shape.Rectangle
 import shape.frame.Frame
 import shape.frame.Point
 import shape.group.ShapeGroup
-import shape.style.Fill
-import shape.style.RGBA
-import shape.style.Stroke
+import shape.style.*
 import slide.Slide
 import java.io.File
 import java.io.FileOutputStream
@@ -27,25 +25,25 @@ fun main() {
 fun writeSlide() {
     val slide = Slide(1000.0, 1000.0)
 
-    val rectangle = Rectangle(Point(50.0, 20.0), 150.0, 150.0, null, null)
-    val ellipse = Ellipse(Point(200.0, 200.0), 150.0, 150.0, null, null)
+    val rectangle = Rectangle(Point(50.0, 20.0), 150.0, 150.0)
+    val ellipse = Ellipse(Point(200.0, 200.0), 150.0, 150.0)
+    rectangle.setFill(Fill(RGBA(255, 50, 20, 1.0)))
+    ellipse.setFill(Fill(RGBA(255, 250, 20, 1.0)))
 
     val shapeGroup = ShapeGroup()
     shapeGroup.insertShape(rectangle, 0)
     shapeGroup.insertShape(ellipse)
 
-    shapeGroup.setFill(Fill(RGBA(255, 250, 20, 1.0)))
     shapeGroup.setStroke(Stroke(RGBA(255, 20, 255, 1.0), 4))
+    shapeGroup.setFill(Fill(RGBA(20, 20, 255, 1.0)))
     shapeGroup.setFrame(Frame(Point(50.0, 20.0), 150.0, 150.0))
 
     slide.insertShape(shapeGroup)
-    val rectangle2 = Rectangle(Point(500.0, 200.0), 150.0, 150.0, null, null)
+    val rectangle2 = Rectangle(Point(500.0, 200.0), 150.0, 150.0)
     slide.insertShape(rectangle2)
 
     val output = PrintStream(File(PATH_TO_FOLDER + "slide.svg"))
-    val canvasSVG = CanvasSVG(output)
-
-    slide.draw(canvasSVG)
+    CanvasSVG(output).use { slide.draw(it) }
 }
 
 fun writeSoloSvgs() {
@@ -61,7 +59,7 @@ fun writeSoloSvgs() {
     )
     writeShapeToSvg(rectangleWithStyle, "rectangleWithStyle.svg")
 
-    val ellipse = Ellipse(Point(200.0, 200.0), 150.0, 150.0)
+    val ellipse = Ellipse(Point(200.0, 200.0), 150.0, 150.0, Fill(WHITE), Stroke(BLACK, 1))
     writeShapeToSvg(ellipse, "ellipse.svg")
 
     val ellipseWithStyle = Ellipse(

@@ -3,17 +3,15 @@ package shape
 import canvas.ICanvas
 import shape.frame.Frame
 import shape.frame.Point
-import shape.style.BLACK_STROKE
 import shape.style.Fill
 import shape.style.Stroke
-import shape.style.WHITE_FILL
 
 class Ellipse(
     private var center: Point,
     private var radiusX: Double,
     private var radiusY: Double,
-    fill: Fill? = WHITE_FILL,
-    stroke: Stroke? = BLACK_STROKE
+    fill: Fill = Fill(),
+    stroke: Stroke = Stroke()
 ) : Shape(fill, stroke) {
 
     override fun getFrame(): Frame {
@@ -27,5 +25,5 @@ class Ellipse(
         radiusY = frame.height / 2
     }
 
-    override fun draw(canvas: ICanvas) = canvas.drawEllipse(center, radiusX, radiusY, getStyle())
+    override fun draw(canvas: ICanvas) = canvas.drawEllipse(center, radiusX, radiusY, getFill(), getStroke())
 }

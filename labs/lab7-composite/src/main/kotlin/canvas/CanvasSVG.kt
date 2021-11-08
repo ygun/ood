@@ -4,10 +4,7 @@ import shape.Ellipse
 import shape.IShape
 import shape.Rectangle
 import shape.frame.Point
-import shape.style.BLACK
-import shape.style.Fill
-import shape.style.RGBA
-import shape.style.WHITE
+import shape.style.*
 import java.io.PrintStream
 
 class CanvasSVG(private val output: PrintStream) : ICanvas, AutoCloseable {
@@ -37,23 +34,38 @@ class CanvasSVG(private val output: PrintStream) : ICanvas, AutoCloseable {
         )
     }
 
-    override fun drawRectangle(leftTop: Point, weight: Double, height: Double, styleStr: String) {
+    override fun drawRectangle(
+        leftTop: Point,
+        weight: Double,
+        height: Double,
+        fill: Fill,
+        stroke: Stroke
+    ) {
         output.println(
-            "<rect x=\"${leftTop.x}\" y=\"${leftTop.y}\" width=\"$weight\" height=\"$height\" ${styleStr}/>"
+            "<rect x=\"${leftTop.x}\" y=\"${leftTop.y}\" width=\"$weight\" height=\"$height\" " +
+                    " ${getStyle(fill, stroke)}/>"
         )
     }
 
     override fun fillRectangle(rectangle: Rectangle) = rectangle.setFill(Fill(fillColor))
 
-    override fun drawEllipse(center: Point, radiusX: Double, radiusY: Double, styleStr: String) {
-        output.println("<ellipse cx=\"${center.x}\" cy=\"${center.y}\" rx=\"${radiusX}\" " +
-                "ry=\"${radiusY}\" ${styleStr}/>")
+    override fun drawEllipse(
+        center: Point,
+        radiusX: Double,
+        radiusY: Double,
+        fill: Fill,
+        stroke: Stroke
+    ) {
+        output.println(
+            "<ellipse cx=\"${center.x}\" cy=\"${center.y}\" rx=\"${radiusX}\" " +
+                    "ry=\"${radiusY}\" ${getStyle(fill, stroke)}/>"
+        )
     }
 
     override fun fillEllipse(ellipse: Ellipse) = ellipse.setFill(Fill(fillColor))
 
-    override fun drawGroup(shapes: List<IShape>, styleStr: String) {
-        output.println("<g $styleStr >")
+    override fun drawGroup(shapes: List<IShape>, fill: Fill, stroke: Stroke) {
+        output.println("<g ${getStyle(fill, stroke)} >")
         shapes.forEach {
             output.print("\t")
             it.draw(this)
@@ -62,4 +74,15 @@ class CanvasSVG(private val output: PrintStream) : ICanvas, AutoCloseable {
     }
 
     override fun close() = output.println("</svg>")
+
+    private fun getStyle(fill: Fill, stroke: Stroke): String {
+        var res = ""
+        if (fill.isEnable && fill.color != null) {
+            res += " fill=\"${fill.color}\" "
+        }
+        if (stroke.isEnable && stroke.color != null) {
+            res += " stroke=\"${stroke.color}\" stroke-width=\"${stroke.width}\" "
+        }
+        return res
+    }
 }

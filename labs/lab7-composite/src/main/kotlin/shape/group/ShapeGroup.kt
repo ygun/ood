@@ -5,17 +5,15 @@ import shape.IShape
 import shape.Shape
 import shape.frame.Frame
 import shape.frame.Point
-import shape.style.BLACK_STROKE
 import shape.style.Fill
 import shape.style.Stroke
-import shape.style.WHITE_FILL
 import java.util.*
 import kotlin.math.max
 import kotlin.math.min
 
 class ShapeGroup(
-    fill: Fill = WHITE_FILL,
-    stroke: Stroke = BLACK_STROKE
+    fill: Fill = Fill(null),
+    stroke: Stroke = Stroke(null)
 ) : IShapeGroup, Shape(fill, stroke), Comparable<IShapeGroup> {
 
     private val shapes = mutableListOf<IShape>()
@@ -94,7 +92,7 @@ class ShapeGroup(
         }
     }
 
-    override fun draw(canvas: ICanvas) = canvas.drawGroup(shapes, getStyle())
+    override fun draw(canvas: ICanvas) = canvas.drawGroup(shapes.toMutableList(), getFill(), getStroke())
 
     override fun isNestedShapeGroup(insertedGroup: IShapeGroup): Boolean {
         val setShapes = getNestedShapeGroups()
@@ -116,6 +114,80 @@ class ShapeGroup(
         return setShapes
     }
 
+    override fun compareTo(other: IShapeGroup): Int {
+        if (this == other) {
+            return 0
+        }
+        return when {
+            getShapesCount() > other.getShapesCount() -> 1
+            else -> -1
+        }
+    }
+
+    override fun getFill(): Fill {
+        val fill = super.getFill()
+        if (fill.color != null) {
+            return fill
+        }
+
+        var isAllEquals = true
+        var tempFill = Fill(null)
+        shapes.forEach {
+            val shapeFill = it.getFill()
+            if (shapeFill.color != null) {
+                if (tempFill.color == null) {
+                    tempFill = shapeFill
+                } else {
+                    isAllEquals = false
+                }
+            }
+        }
+
+        return if (isAllEquals) {
+            setFill(tempFill)
+            tempFill
+        } else {
+            fill
+        }
+    }
+
+    override fun setFill(fill: Fill) {
+        shapes.forEach { it.getFill().isEnable = false }
+        super.setFill(fill)
+    }
+
+    override fun getStroke(): Stroke {
+        val stroke = super.getStroke()
+        if (stroke.color != null) {
+            return stroke
+        }
+
+        var isAllEquals = true
+        var tempStroke = Stroke(null)
+        shapes.forEach {
+            val shapeStroke = it.getStroke()
+            if (shapeStroke.color != null) {
+                if (tempStroke.color == null) {
+                    tempStroke = shapeStroke
+                } else if (shapeStroke != tempStroke) {
+                    isAllEquals = false
+                }
+            }
+        }
+
+        return if (isAllEquals) {
+            setStroke(tempStroke)
+            tempStroke
+        } else {
+            stroke
+        }
+    }
+
+    override fun setStroke(stroke: Stroke) {
+        shapes.forEach { it.getStroke().isEnable = false }
+        super.setStroke(stroke)
+    }
+
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (javaClass != other?.javaClass) return false
@@ -130,16 +202,6 @@ class ShapeGroup(
     override fun hashCode(): Int = shapes.hashCode()
 
     override fun toString(): String = "ShapeGroup(shapes=$shapes)"
-
-    override fun compareTo(other: IShapeGroup): Int {
-        if (this == other) {
-            return 0
-        }
-        return when {
-            getShapesCount() > other.getShapesCount() -> 1
-            else -> -1
-        }
-    }
 
     private fun ensurePositionIsValid(position: Int) {
         if (position < 0)

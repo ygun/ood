@@ -1,13 +1,11 @@
 package shape
 
-import shape.style.BLACK_STROKE
 import shape.style.Fill
 import shape.style.Stroke
-import shape.style.WHITE_FILL
 
 abstract class Shape(
-    private var fill: Fill? = WHITE_FILL,
-    private var stroke: Stroke? = BLACK_STROKE
+    private var fill: Fill = Fill(),
+    private var stroke: Stroke = Stroke()
 ) : IShape {
 
     override fun getFill() = fill
@@ -18,17 +16,5 @@ abstract class Shape(
     override fun getStroke() = stroke
     override fun setStroke(stroke: Stroke) {
         this.stroke = stroke
-    }
-
-    override fun getStyle() = getFillStyle() + " " + getStrokeStyle()
-
-    private fun getFillStyle() = when (fill) {
-        null -> ""
-        else -> fill!!.getStyle()
-    }
-
-    private fun getStrokeStyle() = when (stroke) {
-        null -> ""
-        else -> stroke!!.getStyle()
     }
 }

@@ -34,9 +34,7 @@ class Slide(
     }
 
     override fun draw(canvas: ICanvas) {
-        canvas.use {
-            shapes.forEach { shape -> shape.draw(it) }
-        }
+        shapes.forEach { shape -> shape.draw(canvas) }
     }
 
     private fun ensurePositionIsValid(position: Int) {
