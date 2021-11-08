@@ -1,8 +1,6 @@
 import machine.MultiGumballMachine
-import machine.IGumballMachine
 
-fun useGumballMachine(machine: IGumballMachine)
-{
+fun useGumballMachine(machine: MultiGumballMachine) {
     println(machine.toString())
     println()
 

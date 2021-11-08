@@ -1,84 +1,37 @@
 package machine
 
-import state.*
 import java.io.PrintStream
 
 class MultiGumballMachine(
     private var countBalls: Int = 0,
-    private val output: PrintStream = System.out
-) : IGumballMachine {
+    output: PrintStream = System.out
+) {
 
-    private val soldState: IState = SoldState(this, output)
-    private val soldOutState: IState = SoldOutState(this, output)
-    private val noQuarterState: IState = NoQuarterState(this, output)
-    private val hasQuarterState: IState = HasQuarterState(this, output)
-    private var state: IState = soldOutState
+    private val machineImpl = MultiGumballMachineImpl(countBalls, output)
 
-    private var countQuarters: Int = 0
+    fun insertQuarter() = machineImpl.insertQuarter()
 
-    init {
-        if (countBalls > 0) {
-            state = noQuarterState
-        }
-    }
+    fun ejectQuarter() = machineImpl.ejectQuarter()
 
-    override fun insertQuarter() = state.insertQuarter()
+    fun turnCrank() = machineImpl.turnCrank()
 
-    override fun ejectQuarter() = state.ejectQuarter()
+    fun dispense() = machineImpl.dispense()
 
-    override fun turnCrank() = state.turnCrank()
-
-    override fun dispense() = state.dispense()
-
-    override fun releaseBall() {
-        if (countBalls != 0 && countQuarters > 0) {
-            output.println("A gumball comes rolling out the slot...")
-            --countBalls
-            --countQuarters
-        }
-    }
-
-    override fun getBallCount(): Int = countBalls
-
-    override fun fillMachine(ballsCount: Int) {
+    fun fillMachine(ballsCount: Int) {
         countBalls = ballsCount
         if (countBalls > 0) {
-            state = noQuarterState
+            machineImpl.setNoQuarterState()
         }
     }
 
-    override fun getCountQuarters(): Int = countQuarters
+    fun getCountQuarters(): Int = machineImpl.getCountQuarters()
 
-    override fun addQuarter() {
-        countQuarters++
-    }
-
-    override fun removeAllQuarters() {
-        countQuarters = 0
-    }
-
-    override fun setHasQuarterState() {
-        state = hasQuarterState
-    }
-
-    override fun setNoQuarterState() {
-        state = noQuarterState
-    }
-
-    override fun setSoldState() {
-        state = soldState
-    }
-
-    override fun setSoldOutState() {
-        state = soldOutState
-    }
+    fun addQuarter() = machineImpl.addQuarter()
 
     override fun toString(): String {
         return "Mighty Gumball, Inc.\n" +
                 "Inventory: $countBalls gumballs\n" +
-                "Count quarters: $countQuarters\n" +
-                "Machine is $state"
+                "Count quarters: ${machineImpl.getCountQuarters()}\n" +
+                "Machine is ${machineImpl.getState()}"
     }
-
-    fun getState() = state
 }

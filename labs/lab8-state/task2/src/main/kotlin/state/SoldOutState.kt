@@ -1,10 +1,10 @@
 package state
 
-import machine.IGumballMachine
+import machine.IGumballMachinePrivate
 import java.io.PrintStream
 
 class SoldOutState(
-    private val machine: IGumballMachine,
+    private val machine: IGumballMachinePrivate,
     private val output: PrintStream = System.out
 ) : IState {
 

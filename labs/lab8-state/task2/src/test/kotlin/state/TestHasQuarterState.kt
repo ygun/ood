@@ -1,6 +1,6 @@
 package state
 
-import machine.MultiGumballMachine
+import machine.MultiGumballMachineImpl
 import org.junit.jupiter.api.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertNotEquals
@@ -10,90 +10,90 @@ class TestHasQuarterState {
 
     @Test
     fun `insertQuarter add quarter to Machine`() {
-        val machine = MultiGumballMachine(10)
-        machine.setHasQuarterState()
+        val machineImpl = MultiGumballMachineImpl(10)
+        machineImpl.setHasQuarterState()
 
-        val hasQuarterState = HasQuarterState(machine)
-
-        hasQuarterState.insertQuarter()
-        assertTrue(machine.getState() is HasQuarterState)
-        assertEquals(1, machine.getCountQuarters())
+        val hasQuarterState = HasQuarterState(machineImpl)
 
         hasQuarterState.insertQuarter()
-        hasQuarterState.insertQuarter()
-        hasQuarterState.insertQuarter()
-        hasQuarterState.insertQuarter()
-        assertTrue(machine.getState() is HasQuarterState)
-        assertEquals(5, machine.getCountQuarters())
+        assertTrue(machineImpl.getState() is HasQuarterState)
+        assertEquals(1, machineImpl.getCountQuarters())
 
         hasQuarterState.insertQuarter()
-        assertTrue(machine.getState() is HasQuarterState)
-        assertEquals(5, machine.getCountQuarters())
+        hasQuarterState.insertQuarter()
+        hasQuarterState.insertQuarter()
+        hasQuarterState.insertQuarter()
+        assertTrue(machineImpl.getState() is HasQuarterState)
+        assertEquals(5, machineImpl.getCountQuarters())
+
+        hasQuarterState.insertQuarter()
+        assertTrue(machineImpl.getState() is HasQuarterState)
+        assertEquals(5, machineImpl.getCountQuarters())
     }
 
     @Test
     fun `ejectQuarter change state to NoQuarter and return all quarters`() {
-        val machine = MultiGumballMachine(10)
-        machine.setHasQuarterState()
-        machine.addQuarter()
-        machine.addQuarter()
-        machine.addQuarter()
-        assertEquals(3, machine.getCountQuarters())
+        val machineImpl = MultiGumballMachineImpl(10)
+        machineImpl.setHasQuarterState()
+        machineImpl.addQuarter()
+        machineImpl.addQuarter()
+        machineImpl.addQuarter()
+        assertEquals(3, machineImpl.getCountQuarters())
 
-        val prevState = machine.getState()
-        val prevBallsCount = machine.getBallCount()
+        val prevState = machineImpl.getState()
+        val prevBallsCount = machineImpl.getBallCount()
 
-        val hasQuarterState = HasQuarterState(machine)
+        val hasQuarterState = HasQuarterState(machineImpl)
 
         hasQuarterState.ejectQuarter()
-        assertTrue(machine.getState() is NoQuarterState)
-        assertNotEquals(prevState, machine.getState())
-        assertEquals(prevBallsCount, machine.getBallCount())
-        assertEquals(0, machine.getCountQuarters())
+        assertTrue(machineImpl.getState() is NoQuarterState)
+        assertNotEquals(prevState, machineImpl.getState())
+        assertEquals(prevBallsCount, machineImpl.getBallCount())
+        assertEquals(0, machineImpl.getCountQuarters())
     }
 
     @Test
     fun `turnCrank able to change state to SoldState`() {
-        val machine = MultiGumballMachine(1)
-        machine.setHasQuarterState()
-        machine.addQuarter()
-        val prevState = machine.getState()
+        val machineImpl = MultiGumballMachineImpl(1)
+        machineImpl.setHasQuarterState()
+        machineImpl.addQuarter()
+        val prevState = machineImpl.getState()
 
-        val hasQuarterState = HasQuarterState(machine)
+        val hasQuarterState = HasQuarterState(machineImpl)
 
         hasQuarterState.turnCrank()
-        assertTrue(machine.getState() is SoldState)
-        assertNotEquals(prevState, machine.getState())
-        assertEquals(0, machine.getBallCount())
+        assertTrue(machineImpl.getState() is SoldState)
+        assertNotEquals(prevState, machineImpl.getState())
+        assertEquals(0, machineImpl.getBallCount())
     }
 
     @Test
     fun `turnCrank able to change state to NoQuarter`() {
-        val machine = MultiGumballMachine(10)
-        machine.setHasQuarterState()
-        machine.addQuarter()
-        val prevState = machine.getState()
+        val machineImpl = MultiGumballMachineImpl(10)
+        machineImpl.setHasQuarterState()
+        machineImpl.addQuarter()
+        val prevState = machineImpl.getState()
 
-        val hasQuarterState = HasQuarterState(machine)
+        val hasQuarterState = HasQuarterState(machineImpl)
 
         hasQuarterState.turnCrank()
-        assertTrue(machine.getState() is NoQuarterState)
-        assertNotEquals(prevState, machine.getState())
-        assertEquals(9, machine.getBallCount())
+        assertTrue(machineImpl.getState() is NoQuarterState)
+        assertNotEquals(prevState, machineImpl.getState())
+        assertEquals(9, machineImpl.getBallCount())
     }
 
     @Test
     fun `dispense doesn't change state`() {
-        val machine = MultiGumballMachine(10)
-        machine.setHasQuarterState()
-        val prevState = machine.getState()
-        val prevBallsCount = machine.getBallCount()
+        val machineImpl = MultiGumballMachineImpl(10)
+        machineImpl.setHasQuarterState()
+        val prevState = machineImpl.getState()
+        val prevBallsCount = machineImpl.getBallCount()
 
-        val hasQuarterState = HasQuarterState(machine)
+        val hasQuarterState = HasQuarterState(machineImpl)
 
         hasQuarterState.dispense()
-        assertTrue(machine.getState() is HasQuarterState)
-        assertEquals(prevState, machine.getState())
-        assertEquals(prevBallsCount, machine.getBallCount())
+        assertTrue(machineImpl.getState() is HasQuarterState)
+        assertEquals(prevState, machineImpl.getState())
+        assertEquals(prevBallsCount, machineImpl.getBallCount())
     }
 }

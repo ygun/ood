@@ -1,11 +1,11 @@
 package state
 
-import machine.IGumballMachine
-import machine.IGumballMachine.Companion.MAX_QUARTERS_COUNT
+import machine.IGumballMachinePrivate
+import machine.MAX_QUARTERS_COUNT
 import java.io.PrintStream
 
 class HasQuarterState(
-    private val machine: IGumballMachine,
+    private val machine: IGumballMachinePrivate,
     private val output: PrintStream = System.out
 ) : IState {
 

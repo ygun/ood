@@ -1,13 +1,13 @@
 package machine
 
-import state.*
+import state.States
 import state.States.*
 import java.io.PrintStream
 
 class NaiveGumballMachine(
     private var countBalls: Int = 0,
     private val output: PrintStream = System.out
-) : IGumballMachine {
+) {
 
     private var countQuarters: Int = 0
     private var state: States = SOLD_OUT
@@ -18,7 +18,7 @@ class NaiveGumballMachine(
         }
     }
 
-    override fun insertQuarter() {
+    fun insertQuarter() {
         when (state) {
             SOLD_OUT -> output.println("You can't insert a quarter, the machine is sold out")
             NO_QUARTER -> {
@@ -27,8 +27,8 @@ class NaiveGumballMachine(
                 addQuarter()
             }
             HAS_QUARTER -> {
-                if (getCountQuarters() >= IGumballMachine.MAX_QUARTERS_COUNT) {
-                    output.println("You can't insert quarters more than ${IGumballMachine.MAX_QUARTERS_COUNT}")
+                if (getCountQuarters() >= MAX_QUARTERS_COUNT) {
+                    output.println("You can't insert quarters more than $MAX_QUARTERS_COUNT")
                 } else {
                     output.println("You insert quarter, now machine has ${getCountQuarters()} quarters")
                     addQuarter()
@@ -38,7 +38,7 @@ class NaiveGumballMachine(
         }
     }
 
-    override fun ejectQuarter() {
+    fun ejectQuarter() {
         when (state) {
             SOLD_OUT -> soldEject()
             NO_QUARTER -> output.println("You haven't inserted a quarter")
@@ -51,7 +51,7 @@ class NaiveGumballMachine(
         }
     }
 
-    override fun turnCrank() {
+    fun turnCrank() {
         when (state) {
             SOLD_OUT -> output.println("You turned but there's no gumballs")
             NO_QUARTER -> output.println("You turned but there's no quarter")
@@ -74,7 +74,7 @@ class NaiveGumballMachine(
         }
     }
 
-    override fun dispense() {
+    fun dispense() {
         when (state) {
             SOLD_OUT -> output.println("No gumball dispensed")
             NO_QUARTER -> output.println("You need to pay first")
@@ -96,47 +96,21 @@ class NaiveGumballMachine(
         }
     }
 
-    override fun releaseBall() {
-        if (countBalls != 0 && countQuarters > 0) {
-            output.println("A gumball comes rolling out the slot...")
-            --countBalls
-            --countQuarters
-        }
-    }
+    fun getBallCount(): Int = countBalls
 
-    override fun getBallCount(): Int = countBalls
-
-    override fun fillMachine(ballsCount: Int) {
+    fun fillMachine(ballsCount: Int) {
         countBalls = ballsCount
         if (countBalls > 0) {
             state = NO_QUARTER
         }
     }
 
-    override fun getCountQuarters(): Int = countQuarters
+    fun getCountQuarters(): Int = countQuarters
 
-    override fun addQuarter() {
-        countQuarters++
-    }
-
-    override fun removeAllQuarters() {
-        countQuarters = 0
-    }
-
-    override fun setHasQuarterState() {
-        state = HAS_QUARTER
-    }
-
-    override fun setNoQuarterState() {
-        state = NO_QUARTER
-    }
-
-    override fun setSoldState() {
-        state = SOLD
-    }
-
-    override fun setSoldOutState() {
-        state = SOLD_OUT
+    fun addQuarter() {
+        if (countQuarters < MAX_QUARTERS_COUNT) {
+            countQuarters++
+        }
     }
 
     override fun toString(): String {
@@ -147,6 +121,34 @@ class NaiveGumballMachine(
     }
 
     fun getState(): States = state
+
+    private fun releaseBall() {
+        if (countBalls != 0 && countQuarters > 0) {
+            output.println("A gumball comes rolling out the slot...")
+            --countBalls
+            --countQuarters
+        }
+    }
+
+    private fun removeAllQuarters() {
+        countQuarters = 0
+    }
+
+    private fun setHasQuarterState() {
+        state = HAS_QUARTER
+    }
+
+    private fun setNoQuarterState() {
+        state = NO_QUARTER
+    }
+
+    private fun setSoldState() {
+        state = SOLD
+    }
+
+    private fun setSoldOutState() {
+        state = SOLD_OUT
+    }
 
     private fun soldEject() {
         if (countQuarters != 0) {

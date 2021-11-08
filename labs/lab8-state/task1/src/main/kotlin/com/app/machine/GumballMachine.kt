@@ -17,8 +17,6 @@ class GumballMachine(
 
     fun dispense() = machineImpl.dispense()
 
-    fun getBallCount(): Int = count
-
     fun fillMachine(ballsCount: Int) {
         count = ballsCount
         if (count > 0) {
