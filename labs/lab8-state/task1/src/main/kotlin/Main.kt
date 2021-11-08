@@ -1,7 +1,6 @@
-import gumball.machine.GumballMachine
-import gumball.machine.IGumballMachine
+import com.app.machine.GumballMachine
 
-fun useGumballMachine(machine: IGumballMachine)
+fun useGumballMachine(machine: GumballMachine)
 {
     println(machine.toString())
     println()

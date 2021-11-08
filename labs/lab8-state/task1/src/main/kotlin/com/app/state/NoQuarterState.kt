@@ -1,10 +1,10 @@
-package state
+package com.app.state
 
-import gumball.machine.IGumballMachine
+import com.app.machine.IGumballMachinePrivate
 import java.io.PrintStream
 
 class NoQuarterState(
-    private val machine: IGumballMachine,
+    private val machine: IGumballMachinePrivate,
     private val output: PrintStream = System.out
 ) : IState {
 

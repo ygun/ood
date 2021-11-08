@@ -1,12 +1,12 @@
-package gumball.machine
+package com.app.machine
 
-import state.*
+import com.app.state.*
 import java.io.PrintStream
 
-class GumballMachine(
+class GumballMachineImpl(
     private var count: Int = 0,
     private val output: PrintStream = System.out
-) : IGumballMachine {
+) : IGumballMachinePrivate {
 
     private val soldState: IState = SoldState(this, output)
     private val soldOutState: IState = SoldOutState(this, output)
@@ -20,29 +20,13 @@ class GumballMachine(
         }
     }
 
-    override fun insertQuarter() = state.insertQuarter()
+    fun insertQuarter() = state.insertQuarter()
 
-    override fun ejectQuarter() = state.ejectQuarter()
+    fun ejectQuarter() = state.ejectQuarter()
 
-    override fun turnCrank() = state.turnCrank()
+    fun turnCrank() = state.turnCrank()
 
-    override fun dispense() = state.dispense()
-
-    override fun releaseBall() {
-        if (count != 0) {
-            output.println("A gumball comes rolling out the slot...")
-            --count
-        }
-    }
-
-    override fun getBallCount(): Int = count
-
-    override fun fillMachine(ballsCount: Int) {
-        count = ballsCount
-        if (count > 0) {
-            state = noQuarterState
-        }
-    }
+    fun dispense() = state.dispense()
 
     override fun setHasQuarterState() {
         state = hasQuarterState
@@ -60,11 +44,14 @@ class GumballMachine(
         state = soldOutState
     }
 
-    override fun toString(): String {
-        return "Mighty Gumball, Inc.\n" +
-                "Inventory: $count gumballs\n" +
-                "Machine is $state"
+    override fun releaseBall() {
+        if (count != 0) {
+            output.println("A gumball comes rolling out the slot...")
+            --count
+        }
     }
+
+    override fun getBallCount() = count
 
     fun getState() = state
 }

@@ -1,4 +1,4 @@
-package state
+package com.app.state
 
 interface IState {
     fun insertQuarter()
