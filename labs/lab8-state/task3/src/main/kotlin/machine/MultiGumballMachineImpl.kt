@@ -67,10 +67,7 @@ class MultiGumballMachineImpl(
     }
 
     override fun fillMachine(ballsCount: Int) {
-        countBalls = ballsCount
-        if (countBalls > 0) {
-            setNoQuarterState()
-        }
+        countBalls += ballsCount
     }
 
     fun getState() = state

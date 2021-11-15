@@ -20,6 +20,39 @@ fun main() {
     writeSlide()
 
     fillPolygon("polygon.svg")
+
+    test()
+}
+
+fun test() {
+    val slide = Slide(1000.0, 1000.0)
+
+    val shapeGroup1 = ShapeGroup()
+    val rectangle1 = Rectangle(Point(50.0, 20.0), 150.0, 150.0)
+    val ellipse1 = Ellipse(Point(200.0, 200.0), 150.0, 150.0)
+    shapeGroup1.insertShape(rectangle1)
+    shapeGroup1.insertShape(ellipse1)
+
+    val shapeGroup2 = ShapeGroup()
+    val rectangle2 = Rectangle(Point(400.0, 30.0), 40.0, 30.0)
+    shapeGroup1.insertShape(rectangle2)
+
+    shapeGroup1.setFill(Fill(RGBA(255, 50, 20, 1.0)))
+    shapeGroup1.setFrame(Frame(Point(0.0, 0.0), 30.0, 70.0))
+
+    //shapeGroup1.insertShape(shapeGroup2,0)
+
+    shapeGroup2.insertShape(shapeGroup1)
+    /*val tempShapeGroup = shapeGroup1.getShape(0)
+    if (tempShapeGroup is ShapeGroup) {
+        tempShapeGroup.insertShape(shapeGroup1)
+    }*/
+    //shapeGroup1.insertShape(shapeGroup2)
+
+    slide.insertShape(shapeGroup1)
+
+    val output = PrintStream(File(PATH_TO_FOLDER + "test.svg"))
+    CanvasSVG(output).use { slide.draw(it) }
 }
 
 fun writeSlide() {
@@ -36,6 +69,7 @@ fun writeSlide() {
 
     shapeGroup.setStroke(Stroke(RGBA(255, 20, 255, 1.0), 4))
     shapeGroup.setFill(Fill(RGBA(20, 20, 255, 1.0)))
+    shapeGroup.setFill(Fill(null))
     shapeGroup.setFrame(Frame(Point(50.0, 20.0), 150.0, 150.0))
 
     slide.insertShape(shapeGroup)

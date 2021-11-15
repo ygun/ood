@@ -1,10 +1,7 @@
-package com.app.state
+package state
 
-import com.app.machine.GumballMachineImpl
+import machine.MultiGumballMachineImpl
 import org.junit.jupiter.api.Test
-import com.app.state.HasQuarterState
-import com.app.state.NoQuarterState
-import com.app.state.SoldState
 import kotlin.test.assertEquals
 import kotlin.test.assertNotEquals
 import kotlin.test.assertTrue
@@ -12,24 +9,36 @@ import kotlin.test.assertTrue
 class TestHasQuarterState {
 
     @Test
-    fun `insertQuarter doesn't change state`() {
-        val machineImpl = GumballMachineImpl(10)
+    fun `insertQuarter add quarter to Machine`() {
+        val machineImpl = MultiGumballMachineImpl(10)
         machineImpl.insertQuarter()
-        val prevState = machineImpl.getState()
-        val prevBallsCount = machineImpl.getBallCount()
 
         val hasQuarterState = HasQuarterState(machineImpl)
 
         hasQuarterState.insertQuarter()
         assertTrue(machineImpl.getState() is HasQuarterState)
-        assertEquals(prevState, machineImpl.getState())
-        assertEquals(prevBallsCount, machineImpl.getBallCount())
+        assertEquals(2, machineImpl.getCountQuarters())
+
+        hasQuarterState.insertQuarter()
+        hasQuarterState.insertQuarter()
+        hasQuarterState.insertQuarter()
+        hasQuarterState.insertQuarter()
+        assertTrue(machineImpl.getState() is HasQuarterState)
+        assertEquals(5, machineImpl.getCountQuarters())
+
+        hasQuarterState.insertQuarter()
+        assertTrue(machineImpl.getState() is HasQuarterState)
+        assertEquals(5, machineImpl.getCountQuarters())
     }
 
     @Test
-    fun `ejectQuarter change state to NoQuarter`() {
-        val machineImpl = GumballMachineImpl(10)
+    fun `ejectQuarter change state to NoQuarter and return all quarters`() {
+        val machineImpl = MultiGumballMachineImpl(10)
         machineImpl.insertQuarter()
+        machineImpl.insertQuarter()
+        machineImpl.insertQuarter()
+        assertEquals(3, machineImpl.getCountQuarters())
+
         val prevState = machineImpl.getState()
         val prevBallsCount = machineImpl.getBallCount()
 
@@ -39,11 +48,12 @@ class TestHasQuarterState {
         assertTrue(machineImpl.getState() is NoQuarterState)
         assertNotEquals(prevState, machineImpl.getState())
         assertEquals(prevBallsCount, machineImpl.getBallCount())
+        assertEquals(0, machineImpl.getCountQuarters())
     }
 
     @Test
     fun `turnCrank able to change state to SoldState`() {
-        val machineImpl = GumballMachineImpl(1)
+        val machineImpl = MultiGumballMachineImpl(1)
         machineImpl.insertQuarter()
         val prevState = machineImpl.getState()
 
@@ -57,7 +67,7 @@ class TestHasQuarterState {
 
     @Test
     fun `turnCrank able to change state to NoQuarter`() {
-        val machineImpl = GumballMachineImpl(10)
+        val machineImpl = MultiGumballMachineImpl(10)
         machineImpl.insertQuarter()
         val prevState = machineImpl.getState()
 
@@ -71,7 +81,7 @@ class TestHasQuarterState {
 
     @Test
     fun `dispense doesn't change state`() {
-        val machineImpl = GumballMachineImpl(10)
+        val machineImpl = MultiGumballMachineImpl(10)
         machineImpl.insertQuarter()
         val prevState = machineImpl.getState()
         val prevBallsCount = machineImpl.getBallCount()
@@ -82,5 +92,21 @@ class TestHasQuarterState {
         assertTrue(machineImpl.getState() is HasQuarterState)
         assertEquals(prevState, machineImpl.getState())
         assertEquals(prevBallsCount, machineImpl.getBallCount())
+    }
+
+    @Test
+    fun `fill machine doesn't change state and fill machine`() {
+        val machineImpl = MultiGumballMachineImpl(10)
+        machineImpl.insertQuarter()
+        val prevState = machineImpl.getState()
+        val prevBallsCount = machineImpl.getBallCount()
+
+        val hasQuarterState = HasQuarterState(machineImpl)
+
+        hasQuarterState.fillMachine(10)
+        assertTrue(machineImpl.getState() is HasQuarterState)
+        assertEquals(prevState, machineImpl.getState())
+        assertNotEquals(prevBallsCount, machineImpl.getBallCount())
+        assertEquals(20, machineImpl.getBallCount())
     }
 }

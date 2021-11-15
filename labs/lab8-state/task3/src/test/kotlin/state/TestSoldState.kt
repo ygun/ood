@@ -27,11 +27,11 @@ class TestSoldState {
     fun `ejectQuarter doesn't change state and return all quarters`() {
         val machineImpl = MultiGumballMachineImpl(1)
         machineImpl.insertQuarter()
+        machineImpl.insertQuarter()
+        machineImpl.insertQuarter()
+        machineImpl.insertQuarter()
+        assertEquals(4, machineImpl.getCountQuarters())
         machineImpl.turnCrank()
-        machineImpl.addQuarter()
-        machineImpl.addQuarter()
-        machineImpl.addQuarter()
-        assertEquals(3, machineImpl.getCountQuarters())
 
         val prevState = machineImpl.getState()
         val prevBallsCount = machineImpl.getBallCount()
@@ -81,15 +81,15 @@ class TestSoldState {
         machineImpl.insertQuarter()
         machineImpl.turnCrank()
         val prevState = machineImpl.getState()
-        machineImpl.fillMachine(10)
         val prevBallsCount = machineImpl.getBallCount()
+        machineImpl.fillMachine(10)
 
         val soldState = SoldState(machineImpl)
 
         soldState.dispense()
         assertTrue(machineImpl.getState() is NoQuarterState)
         assertNotEquals(prevState, machineImpl.getState())
-        assertEquals(prevBallsCount, machineImpl.getBallCount())
+        assertNotEquals(prevBallsCount, machineImpl.getBallCount())
     }
 
     @Test
@@ -100,8 +100,8 @@ class TestSoldState {
         machineImpl.insertQuarter()
         machineImpl.turnCrank()
         val prevState = machineImpl.getState()
-        machineImpl.fillMachine(10)
         val prevBallsCount = machineImpl.getBallCount()
+        machineImpl.fillMachine(10)
 
         val soldState = SoldState(machineImpl)
 
@@ -118,12 +118,28 @@ class TestSoldState {
         machineImpl.turnCrank()
         val prevState = machineImpl.getState()
         val prevBallsCount = machineImpl.getBallCount()
-        val soldState = SoldState(machineImpl)
         machineImpl.fillMachine(10)
+
+        val soldState = SoldState(machineImpl)
 
         soldState.dispense()
         assertTrue(machineImpl.getState() is NoQuarterState)
         assertNotEquals(prevState, machineImpl.getState())
         assertNotEquals(prevBallsCount, machineImpl.getBallCount())
+    }
+
+    @Test
+    fun `fillMachine doesn't change state`() {
+        val machineImpl = MultiGumballMachineImpl(10)
+        machineImpl.setSoldState()
+        val prevState = machineImpl.getState()
+        val prevBallsCount = machineImpl.getBallCount()
+
+        val soldState = SoldState(machineImpl)
+
+        soldState.fillMachine(10)
+        assertTrue(machineImpl.getState() is SoldState)
+        assertEquals(prevState, machineImpl.getState())
+        assertEquals(prevBallsCount, machineImpl.getBallCount())
     }
 }

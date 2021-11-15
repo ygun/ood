@@ -1,31 +1,26 @@
-import com.app.machine.GumballMachine
+import machine.MultiGumballMachine
 
-fun useGumballMachine(machine: GumballMachine)
-{
-    println(machine.toString())
-    println()
-
-    machine.fillMachine(10)
-
+fun useGumballMachine(machine: MultiGumballMachine) {
     println(machine.toString())
     println()
 
     machine.insertQuarter()
+    machine.insertQuarter()
+    machine.insertQuarter()
+
+    println(machine.toString() + "\n")
+
     machine.turnCrank()
-    machine.dispense()
     println()
 
-    println(machine.toString())
-    println()
+    println(machine.toString() + "\n")
 
     machine.insertQuarter()
     machine.ejectQuarter()
     machine.turnCrank()
-    machine.dispense()
     println()
 
-    println(machine.toString())
-    println()
+    println(machine.toString() + "\n")
 
     machine.insertQuarter()
     machine.turnCrank()
@@ -38,12 +33,11 @@ fun useGumballMachine(machine: GumballMachine)
     machine.ejectQuarter()
     println()
 
-    println(machine.toString())
-    println()
+    println(machine.toString() + "\n")
 }
 
 fun main() {
-    val machine = GumballMachine(10)
+    val machine = MultiGumballMachine(10)
 
     useGumballMachine(machine)
 }

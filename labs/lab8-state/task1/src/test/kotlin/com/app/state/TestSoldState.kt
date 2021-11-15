@@ -9,8 +9,9 @@ import kotlin.test.assertTrue
 class TestSoldState {
     @Test
     fun `insertQuarter doesn't change state`() {
-        val machineImpl = GumballMachineImpl(10)
-        machineImpl.setSoldState()
+        val machineImpl = GumballMachineImpl(1)
+        machineImpl.insertQuarter()
+        machineImpl.turnCrank()
         val prevState = machineImpl.getState()
         val prevBallsCount = machineImpl.getBallCount()
 
@@ -24,8 +25,9 @@ class TestSoldState {
 
     @Test
     fun `ejectQuarter doesn't change state`() {
-        val machineImpl = GumballMachineImpl(10)
-        machineImpl.setSoldState()
+        val machineImpl = GumballMachineImpl(1)
+        machineImpl.insertQuarter()
+        machineImpl.turnCrank()
         val prevState = machineImpl.getState()
         val prevBallsCount = machineImpl.getBallCount()
 
@@ -39,8 +41,9 @@ class TestSoldState {
 
     @Test
     fun `turnCrank doesn't change state`() {
-        val machineImpl = GumballMachineImpl(10)
-        machineImpl.setSoldState()
+        val machineImpl = GumballMachineImpl(1)
+        machineImpl.insertQuarter()
+        machineImpl.turnCrank()
         val prevState = machineImpl.getState()
         val prevBallsCount = machineImpl.getBallCount()
 
@@ -55,7 +58,8 @@ class TestSoldState {
     @Test
     fun `dispense able to change state to SoldOutState`() {
         val machineImpl = GumballMachineImpl(1)
-        machineImpl.setSoldState()
+        machineImpl.insertQuarter()
+        machineImpl.turnCrank()
         val prevState = machineImpl.getState()
         val prevBallsCount = machineImpl.getBallCount()
 
@@ -69,8 +73,9 @@ class TestSoldState {
 
     @Test
     fun `dispense able to change state to NoQuarterState`() {
-        val machineImpl = GumballMachineImpl(10)
-        machineImpl.setSoldState()
+        val machineImpl = GumballMachineImpl(1)
+        machineImpl.insertQuarter()
+        machineImpl.turnCrank()
         val prevState = machineImpl.getState()
         val prevBallsCount = machineImpl.getBallCount()
 

@@ -152,7 +152,9 @@ class ShapeGroup(
     }
 
     override fun setFill(fill: Fill) {
-        shapes.forEach { it.getFill().isEnable = false }
+        shapes.forEach {
+            it.getFill().isEnable = fill.color == null
+        }
         super.setFill(fill)
     }
 
@@ -184,7 +186,9 @@ class ShapeGroup(
     }
 
     override fun setStroke(stroke: Stroke) {
-        shapes.forEach { it.getStroke().isEnable = false }
+        shapes.forEach {
+            it.getStroke().isEnable = stroke.color == null
+        }
         super.setStroke(stroke)
     }
 

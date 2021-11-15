@@ -32,6 +32,7 @@ class HasQuarterState(
 
         output.println("You turned...")
         machine.releaseBall()
+
         if (machine.getBallCount() == 0) {
             machine.setSoldState()
         } else if (machine.getCountQuarters() == 0) {
@@ -40,6 +41,12 @@ class HasQuarterState(
     }
 
     override fun dispense() = output.println("No gumball dispensed")
+
+    override fun fillMachine(ballsCount: Int) {
+        machine.fillMachine(ballsCount)
+
+        output.println("You've filled machine with: $ballsCount balls")
+    }
 
     override fun toString() = "waiting for turn of crank"
 }

@@ -19,7 +19,7 @@ class ModernGraphicsRenderer(private val out: PrintStream = System.out) : AutoCl
         isDrawing = true
     }
 
-    fun drawLine(start: Point, end: Point) {
+    fun drawLine(start: Point = Point(0, 0), end: Point) {
         if (!isDrawing) {
             throw IllegalAccessException("drawLine is allowed between beginDraw()/endDraw() only")
         }

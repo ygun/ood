@@ -42,7 +42,7 @@ fun useGumballMachine(machine: MultiGumballMachine) {
 }
 
 fun main() {
-    val machine = MultiGumballMachine(0)
+    val machine = MultiGumballMachine(10)
 
     useGumballMachine(machine)
 }

@@ -15,7 +15,7 @@ class GraphicLibAdapter(
     private val renderer: ModernGraphicsRenderer
 ) : ICanvas, AutoCloseable {
 
-    private var coordinates: Coordinates? = null
+    private var coordinates = Coordinates(0, 0)
 
     init {
         renderer.beginDraw()
@@ -27,7 +27,7 @@ class GraphicLibAdapter(
 
     override fun lineTo(x: Int, y: Int) {
         renderer.drawLine(
-            coordinates?.point() ?: throw RuntimeException("Please call moveTo before drawing"),
+            coordinates.point(),
             Point(x, y)
         )
     }

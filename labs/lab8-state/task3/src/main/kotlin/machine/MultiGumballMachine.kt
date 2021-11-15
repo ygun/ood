@@ -17,8 +17,6 @@ class MultiGumballMachine(
 
     fun dispense() = machineImpl.dispense()
 
-    fun fillMachine(ballsCount: Int) = machineImpl.fillMachine(ballsCount)
-
     fun getCountQuarters(): Int = machineImpl.getCountQuarters()
 
     fun addQuarter() = machineImpl.addQuarter()

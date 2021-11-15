@@ -11,13 +11,13 @@ class TestHasQuarterState {
     @Test
     fun `insertQuarter add quarter to Machine`() {
         val machineImpl = MultiGumballMachineImpl(10)
-        machineImpl.setHasQuarterState()
+        machineImpl.insertQuarter()
 
         val hasQuarterState = HasQuarterState(machineImpl)
 
         hasQuarterState.insertQuarter()
         assertTrue(machineImpl.getState() is HasQuarterState)
-        assertEquals(1, machineImpl.getCountQuarters())
+        assertEquals(2, machineImpl.getCountQuarters())
 
         hasQuarterState.insertQuarter()
         hasQuarterState.insertQuarter()
@@ -34,10 +34,9 @@ class TestHasQuarterState {
     @Test
     fun `ejectQuarter change state to NoQuarter and return all quarters`() {
         val machineImpl = MultiGumballMachineImpl(10)
-        machineImpl.setHasQuarterState()
-        machineImpl.addQuarter()
-        machineImpl.addQuarter()
-        machineImpl.addQuarter()
+        machineImpl.insertQuarter()
+        machineImpl.insertQuarter()
+        machineImpl.insertQuarter()
         assertEquals(3, machineImpl.getCountQuarters())
 
         val prevState = machineImpl.getState()
@@ -55,8 +54,7 @@ class TestHasQuarterState {
     @Test
     fun `turnCrank able to change state to SoldState`() {
         val machineImpl = MultiGumballMachineImpl(1)
-        machineImpl.setHasQuarterState()
-        machineImpl.addQuarter()
+        machineImpl.insertQuarter()
         val prevState = machineImpl.getState()
 
         val hasQuarterState = HasQuarterState(machineImpl)
@@ -70,8 +68,7 @@ class TestHasQuarterState {
     @Test
     fun `turnCrank able to change state to NoQuarter`() {
         val machineImpl = MultiGumballMachineImpl(10)
-        machineImpl.setHasQuarterState()
-        machineImpl.addQuarter()
+        machineImpl.insertQuarter()
         val prevState = machineImpl.getState()
 
         val hasQuarterState = HasQuarterState(machineImpl)
@@ -85,7 +82,7 @@ class TestHasQuarterState {
     @Test
     fun `dispense doesn't change state`() {
         val machineImpl = MultiGumballMachineImpl(10)
-        machineImpl.setHasQuarterState()
+        machineImpl.insertQuarter()
         val prevState = machineImpl.getState()
         val prevBallsCount = machineImpl.getBallCount()
 

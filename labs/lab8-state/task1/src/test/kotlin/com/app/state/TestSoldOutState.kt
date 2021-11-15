@@ -8,8 +8,7 @@ import kotlin.test.assertTrue
 class TestSoldOutState {
     @Test
     fun `insertQuarter doesn't change state`() {
-        val machineImpl = GumballMachineImpl(10)
-        machineImpl.setSoldOutState()
+        val machineImpl = GumballMachineImpl()
         val prevState = machineImpl.getState()
         val prevBallsCount = machineImpl.getBallCount()
 
@@ -23,8 +22,7 @@ class TestSoldOutState {
 
     @Test
     fun `ejectQuarter doesn't change state`() {
-        val machineImpl = GumballMachineImpl(10)
-        machineImpl.setSoldOutState()
+        val machineImpl = GumballMachineImpl()
         val prevState = machineImpl.getState()
         val prevBallsCount = machineImpl.getBallCount()
 
@@ -38,8 +36,7 @@ class TestSoldOutState {
 
     @Test
     fun `turnCrank doesn't change state`() {
-        val machineImpl = GumballMachineImpl(10)
-        machineImpl.setSoldOutState()
+        val machineImpl = GumballMachineImpl()
         val prevState = machineImpl.getState()
         val prevBallsCount = machineImpl.getBallCount()
 
@@ -53,8 +50,7 @@ class TestSoldOutState {
 
     @Test
     fun `dispense doesn't change state`() {
-        val machineImpl = GumballMachineImpl(10)
-        machineImpl.setSoldOutState()
+        val machineImpl = GumballMachineImpl()
         val prevState = machineImpl.getState()
         val prevBallsCount = machineImpl.getBallCount()
 

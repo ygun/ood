@@ -11,16 +11,6 @@ import java.io.PrintStream
 import kotlin.test.assertEquals
 
 class TestGraphicLibAdapter {
-    @Test
-    fun `lineTo with null coordinates throw RuntimeException`() {
-        val os = ByteArrayOutputStream()
-        val ps = PrintStream(os)
-
-        val renderer = ModernGraphicsRenderer(ps)
-        val adapter = GraphicLibAdapter(renderer)
-
-        assertThrows<RuntimeException> { adapter.lineTo(0, 1) }
-    }
 
     @Test
     fun `lineTo with correct coordinates draw line`() {
