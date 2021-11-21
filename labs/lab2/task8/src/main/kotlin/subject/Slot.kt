@@ -11,12 +11,8 @@ open class Signal<T> {
         }
     }
 
-    open fun removeCallback(index: Int = Int.MAX_VALUE) {
-        if (index == Int.MAX_VALUE || index > callbacks.lastIndex) {
-            callbacks.removeAt(callbacks.lastIndex)
-        } else {
-            callbacks.removeAt(index)
-        }
+    open fun removeCallback(slot: (Subject<T>, T) -> Unit) {
+        callbacks.remove(slot)
     }
 
     open fun emit(subject: Subject<T>, param: T) {

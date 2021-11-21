@@ -8,8 +8,8 @@ abstract class SubjectImpl<Context> : Subject<Context> {
         signal.addCallback(slot)
     }
 
-    override fun removeObserver(index: Int) {
-        signal.removeCallback(index)
+    override fun removeObserver(slot: (Subject<Context>, Context) -> Unit) {
+        signal.removeCallback(slot)
     }
 
     override fun notifyObservers(context: Context) {

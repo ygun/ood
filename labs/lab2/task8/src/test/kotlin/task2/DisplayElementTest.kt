@@ -14,7 +14,7 @@ class DisplayElementTest(
     }
 
     override fun update(subject: Subject<WeatherMeasurement>, context: WeatherMeasurement) {
-        weatherData.removeObserver(8)
+        weatherData.removeObserver(this::update)
 
         display()
     }

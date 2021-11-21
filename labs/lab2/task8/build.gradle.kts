@@ -13,8 +13,6 @@ repositories {
 }
 
 dependencies {
-    implementation("com.utopia-rise:godot-library:0.3.0-3.4.0")
-
     testImplementation(kotlin("test"))
 }
 
