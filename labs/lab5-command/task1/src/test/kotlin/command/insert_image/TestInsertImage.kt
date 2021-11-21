@@ -14,8 +14,8 @@ class TestInsertImage {
     fun `execute and revert with position change document item by postion`() {
         val document = Document()
 
-        val fileRepository = FileRepository(Path.of("D://GitHub/ood/labs/lab5/task1/src/test/kotlin/command/insert_image/copy_to"))
-        val img = Image(Path.of("D://GitHub/ood/labs/lab5/task1/data/img.jpg"), 200, 200)
+        val fileRepository = FileRepository(Path.of("D://GitHub/ood/labs/lab5-command/task1/src/test/kotlin/command/insert_image/copy_to"))
+        val img = Image(Path.of("D://GitHub/ood/labs/lab5-command/task1/data/img.jpg"), 200, 200)
         val insertImage = InsertImage(fileRepository, 0, img.getWidth(), img.getHeight(), img.getPath())
 
         insertImage.execute(document)
@@ -30,8 +30,8 @@ class TestInsertImage {
     fun `execute and revert without position change the last document item`() {
         val document = Document()
 
-        val fileRepository = FileRepository(Path.of("D://GitHub/ood/labs/lab5/task1/src/test/kotlin/command/insert_image/copy_to"))
-        val img = Image(Path.of("D://GitHub/ood/labs/lab5/task1/data/img2.jpg"), 200, 200)
+        val fileRepository = FileRepository(Path.of("D://GitHub/ood/labs/lab5-command-command/task1/src/test/kotlin/command/insert_image/copy_to"))
+        val img = Image(Path.of("D://GitHub/ood/labs/lab5-command/task1/data/img2.jpg"), 200, 200)
         val insertImage = InsertImage(fileRepository, 0, img.getWidth(), img.getHeight(), img.getPath())
 
         insertImage.execute(document)
