@@ -4,9 +4,11 @@ import display.DisplayElement
 import observer.Observer
 import subject.Subject
 import util.WeatherMeasurement
+import java.io.PrintStream
 
 class DisplayElementTest(
-    private val weatherData: Subject<WeatherMeasurement>
+    private val weatherData: Subject<WeatherMeasurement>,
+    private val output: PrintStream = System.out
 ) : Observer<WeatherMeasurement>, DisplayElement {
 
     init {
@@ -20,6 +22,6 @@ class DisplayElementTest(
     }
 
     override fun display() {
-        println("Remove observer in update")
+        output.println("Remove observer in update")
     }
 }

@@ -1,0 +1,38 @@
+import {store} from "../store/store"
+
+export const isMoveElement = (event: any) => {
+    let isMoveElements = false
+    let editor = store.getState()
+    let selectedElements = []
+    for (let i = 0; i < editor.selectionElementsId.length; i++) {
+        selectedElements.push(document.getElementById(editor.selectionElementsId[i]))
+    }
+
+    let itsSelectedElements = []
+    for (let i = 0; i < selectedElements.length; i++) {
+        let element = selectedElements[i]
+        if (element) {
+            if (element.tagName === 'P') {
+                let parent = element.parentNode as HTMLElement
+                let shiftX = event.pageX - element.getBoundingClientRect().left
+                let shiftY = event.pageY - element.getBoundingClientRect().top
+                let parentSize = {
+                    width: parent.getBoundingClientRect().width,
+                    height: parent.getBoundingClientRect().height
+                }
+
+                itsSelectedElements.push(
+                    event.target === parent ||
+                    (event.target.tagName === 'P' && (parentSize.width - shiftX <= 5 || parentSize.height - shiftY <= 5 || shiftX <= 5 || shiftY <= 5)))
+            } else {
+                itsSelectedElements.push(event.target === selectedElements[i] || (selectedElements[i] as HTMLElement).contains(event.target as Node))
+            }
+        }
+    }
+
+    if (itsSelectedElements.includes(true)) {
+        isMoveElements = true
+    }
+
+    return isMoveElements
+}

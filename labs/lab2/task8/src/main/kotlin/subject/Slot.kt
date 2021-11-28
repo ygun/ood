@@ -1,23 +1,22 @@
 package subject
 
+import observer.ObserverSlotWithPriority
+import java.util.*
+
 open class Signal<T> {
-    private val callbacks = mutableListOf<(Subject<T>, T) -> Unit>()
+    private val callbacks: SortedSet<ObserverSlotWithPriority<T>> = TreeSet()
 
     open fun addCallback(slot: (Subject<T>, T) -> Unit, index: Int = Int.MAX_VALUE) {
-        if (index == Int.MAX_VALUE || index > callbacks.lastIndex) {
-            callbacks.add(slot)
-        } else {
-            callbacks.add(index, slot)
-        }
+        callbacks.add(ObserverSlotWithPriority(slot, index))
     }
 
     open fun removeCallback(slot: (Subject<T>, T) -> Unit) {
-        callbacks.remove(slot)
+        callbacks.remove(ObserverSlotWithPriority(slot, 0))
     }
 
     open fun emit(subject: Subject<T>, param: T) {
         callbacks.toList().forEach { call ->
-            call(subject, param)
+            call.slot(subject, param)
         }
     }
 }

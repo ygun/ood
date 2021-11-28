@@ -2,16 +2,17 @@ package display
 
 import display.duo.SubjectLocation
 import display.duo.WeatherDuoDisplay
-import observer.Observer
 import subject.Subject
 import util.WeatherMeasurement
+import java.io.PrintStream
 import kotlin.math.pow
 
 class HeatIndexDisplay(
     inSubject: Subject<WeatherMeasurement>,
     inPriority: Int = 0,
     outSubject: Subject<WeatherMeasurement>,
-    outPriority: Int = 0
+    outPriority: Int = 0,
+    private var output: PrintStream = System.out
 ) : WeatherDuoDisplay(inSubject, inPriority, outSubject, outPriority) {
 
     private var heatIndexIn = 0.0
@@ -27,12 +28,12 @@ class HeatIndexDisplay(
     }
 
     override fun display(subjectLocation: SubjectLocation) {
-        val heatIndex = when(subjectLocation) {
+        val heatIndex = when (subjectLocation) {
             SubjectLocation.INSIDE -> heatIndexIn
             SubjectLocation.OUTSIDE -> heatIndexOut
         }
 
-        println("${subjectLocation.name} Heat index: $heatIndex")
+        output.println("${subjectLocation.name} Heat index: $heatIndex")
     }
 
     private fun calculateHeatIndex(temperature: Double, humidity: Double): Double {

@@ -5,7 +5,7 @@ abstract class SubjectImpl<Context> : Subject<Context> {
     private val signal: Signal<Context> = Signal()
 
     override fun registerObserver(slot: (Subject<Context>, Context) -> Unit, index: Int) {
-        signal.addCallback(slot)
+        signal.addCallback(slot, index)
     }
 
     override fun removeObserver(slot: (Subject<Context>, Context) -> Unit) {

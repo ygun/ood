@@ -16,18 +16,12 @@ class DegreeAverageCalculator : AverageCalculator {
         sumOfAllCos += cos(valueInRad)
     }
 
-    override fun calculateAverage(): Double {
-        return when {
-            (sumOfAllCos == sumOfAllSin) && (sumOfAllCos == 0.0) -> 0.0
-            else -> radToDegree(atan2(sumOfAllSin, sumOfAllCos))
-        }
+    override fun calculateAverage(): Double = when {
+        (sumOfAllCos == sumOfAllSin) && (sumOfAllCos == 0.0) -> 0.0
+        else -> radToDegree(atan2(sumOfAllSin, sumOfAllCos))
     }
 }
 
-private fun degreeToRad(degrees: Double): Double {
-    return degrees * PI / 180
-}
+private fun degreeToRad(degrees: Double): Double = degrees * PI / 180
 
-private fun radToDegree(rad: Double): Double {
-    return rad * 180 / PI
-}
+private fun radToDegree(rad: Double): Double = rad * 180 / PI

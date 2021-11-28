@@ -1,0 +1,49 @@
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}
+
+.slide-area {
+  background-color: #f8f9fa;
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  box-sizing: border-box;
+  align-items: center;
+  justify-content: center;
+}
+
+.main-block {
+  display: grid;
+}
+
+.wrapper {
+  height: 100vh;
+  display: grid;
+  grid-template-rows: 53px 1fr;
+}
+
+.sidebar {
+  margin-top: 1rem;
+  overflow-y: scroll;
+  max-height: calc(100vh - 160px - 1rem);
+}
+
+.MuiBox-root-2 {
+  overflow: auto;
+  padding-left: 2rem !important;
+  padding-right: 2rem !important;
+}
+
+
+
+

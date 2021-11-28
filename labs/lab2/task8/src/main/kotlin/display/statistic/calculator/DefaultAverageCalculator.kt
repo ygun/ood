@@ -9,7 +9,5 @@ class DefaultAverageCalculator : AverageCalculator {
         sumOfAllValues += newValue
     }
 
-    override fun calculateAverage(): Double {
-        return sumOfAllValues / numReadings
-    }
+    override fun calculateAverage(): Double = sumOfAllValues / numReadings
 }

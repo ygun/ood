@@ -12,6 +12,9 @@ fun useGumballMachine(machine: MultiGumballMachine) {
     machine.insertQuarter()
     machine.insertQuarter()
     machine.insertQuarter()
+    machine.insertQuarter()
+    machine.insertQuarter()
+    machine.insertQuarter()
 
     println(machine.toString() + "\n")
 

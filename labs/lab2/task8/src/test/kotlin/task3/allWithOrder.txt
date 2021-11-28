@@ -1,0 +1,8 @@
+My order is: 100
+My order is: 34
+My order is: 2
+My order is: 1
+INSIDE: Heat index: Inside improving weather on the way!
+INSIDE: Heat index: Inside improving weather on the way!
+OUTSIDE: Heat index: Outside improving weather on the way!
+OUTSIDE: Heat index: Outside improving weather on the way!

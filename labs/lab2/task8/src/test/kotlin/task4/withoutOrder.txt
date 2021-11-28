@@ -1,0 +1,10 @@
+INSIDE: Avg/Max/Min pressure = 30.4/30.4/30.4
+INSIDE: Avg/Max/Min pressure = 30.4/30.4/30.4
+INSIDE: Avg/Max/Min temperature = 80.0/80.0/80.0
+INSIDE: Avg/Max/Min temperature = 80.0/80.0/80.0
+INSIDE: Heat index: Inside improving weather on the way!
+OUTSIDE: Avg/Max/Min pressure = 29.2/29.2/29.2
+OUTSIDE: Avg/Max/Min pressure = 29.2/29.2/29.2
+OUTSIDE: Avg/Max/Min temperature = 82.0/82.0/82.0
+OUTSIDE: Avg/Max/Min temperature = 82.0/82.0/82.0
+OUTSIDE: Heat index: Outside improving weather on the way!

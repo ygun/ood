@@ -4,10 +4,12 @@ import display.DisplayElement
 import observer.Observer
 import subject.Subject
 import util.WeatherMeasurement
+import java.io.PrintStream
 
 class ElementWithOrderDisplay(
-    private val weatherData: Subject<WeatherMeasurement>,
-    private var order: Int
+    weatherData: Subject<WeatherMeasurement>,
+    private var order: Int,
+    private var output: PrintStream = System.out
 ) : Observer<WeatherMeasurement>, DisplayElement {
 
     init {
@@ -19,6 +21,6 @@ class ElementWithOrderDisplay(
     }
 
     override fun display() {
-        println("My order is: $order")
+        output.println("My order is: $order")
     }
 }

@@ -1,0 +1,10 @@
+My order is: 3
+INSIDE: Avg/Max/Min wind speed = 2.0/2.0/2.0
+INSIDE: Avg/Max/Min wind speed = 2.0/2.0/2.0
+INSIDE: Avg/Max/Min wind direction = 12.0/12.0/12.0
+INSIDE: Avg/Max/Min wind direction = 12.0/12.0/12.0
+My order is: 0
+OUTSIDE: Avg/Max/Min wind speed = 4.0/4.0/4.0
+OUTSIDE: Avg/Max/Min wind speed = 4.0/4.0/4.0
+OUTSIDE: Avg/Max/Min wind direction = 50.0/50.0/50.0
+OUTSIDE: Avg/Max/Min wind direction = 50.0/50.0/50.0

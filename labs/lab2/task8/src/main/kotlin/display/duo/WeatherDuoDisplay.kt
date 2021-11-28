@@ -4,6 +4,7 @@ import display.DisplayElement
 import observer.Observer
 import subject.Subject
 import util.WeatherMeasurement
+import java.io.PrintStream
 
 abstract class WeatherDuoDisplay(
     private val inSubject: Subject<WeatherMeasurement>,

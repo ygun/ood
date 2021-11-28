@@ -1,0 +1,75 @@
+.slide-area {
+    overflow: hidden;
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    box-sizing: border-box;
+    align-items: center;
+    justify-content: center;
+}
+
+.slide-area > .workspace {
+    border-radius: inherit;
+}
+
+.workspace {
+    margin: auto 0;
+    background-color: #FFFFFF;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+    width: 95vh;
+    height: 54vh;
+    overflow: hidden;
+}
+
+@media screen and (min-width: 1401px) {
+    .workspace {
+        width: 1104px;
+        height: 621px;
+    }
+}
+
+@media screen and (min-height: 822px) {
+    .workspace {
+        width: 1104px;
+        height: 621px;
+    }
+}
+
+.element_choosed {
+    cursor: move;
+}
+
+.elem-path {
+    display: none;
+}
+
+.elem-path.elem-path_active {
+    display: block;
+}
+
+svg {
+    overflow: visible;
+}
+
+.points_container {
+    visibility: hidden;
+}
+
+.points_container.points_container_active {
+    visibility: visible;
+}
+
+svg p::before {
+    content: '';
+    cursor: text;
+}
+
+svg p:empty:not(.element_choosed)::before {
+    content: attr(data-placeholder);
+    color: #FFFFFF;
+    text-shadow: 0 1px 0 #000000, 0 -1px 0 #000000, 1px 0 0 #000000, -1px 0 0 #000000, 1px 1px 0 #000000, 1px -1px 0 #000000, -1px 1px 0 #000000, -1px -1px 0 #000000;
+}
+
+.multiple-select {
+    display: none !important;
+}

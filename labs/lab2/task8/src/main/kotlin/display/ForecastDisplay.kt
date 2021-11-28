@@ -4,12 +4,14 @@ import display.duo.SubjectLocation
 import display.duo.WeatherDuoDisplay
 import subject.Subject
 import util.WeatherMeasurement
+import java.io.PrintStream
 
 class ForecastDisplay(
     inSubject: Subject<WeatherMeasurement>,
     inPriority: Int = 0,
     outSubject: Subject<WeatherMeasurement>,
-    outPriority: Int = 0
+    outPriority: Int = 0,
+    private var output: PrintStream = System.out
 ) : WeatherDuoDisplay(inSubject, inPriority, outSubject, outPriority) {
 
     private var inCurrentPressure = 0.0
@@ -39,7 +41,7 @@ class ForecastDisplay(
             SubjectLocation.OUTSIDE -> getWeatherMessage(SubjectLocation.OUTSIDE)
         }
 
-        println("${subjectLocation.name}: Heat index: $heatIndexMsg")
+        output.println("${subjectLocation.name}: Heat index: $heatIndexMsg")
     }
 
     private fun getWeatherMessage(subjectLocation: SubjectLocation): String {
