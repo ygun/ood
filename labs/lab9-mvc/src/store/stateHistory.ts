@@ -5,7 +5,7 @@ import {INITIAL_STATE_HISTORY} from "../entities/Constants"
 
 let stateHistory: StateHistory = INITIAL_STATE_HISTORY
 
-export function saveStateToHistory(state: Editor) {
+export const saveStateToHistory = (state: Editor) => {
     try {
         if (stateHistory.index !== stateHistory.history.length - 1) {
             stateHistory.history.splice(stateHistory.index + 1)
@@ -18,30 +18,15 @@ export function saveStateToHistory(state: Editor) {
     }
 }
 
-export function getStateHistory(): StateHistory {
-    return stateHistory
-}
+export const getStateHistory = (): StateHistory => stateHistory
 
-export function resetStateHistory() {
-    stateHistory = {
-        history: [],
-        index: 0
-    } as StateHistory
-}
+export const canRedo = (): boolean => stateHistory.index < stateHistory.history.length - 1
 
-export function canRedo(): boolean {
-    return stateHistory.index < stateHistory.history.length - 1
-}
+export const canUndo = (): boolean => stateHistory.index > 0 && stateHistory.history.length > 1
 
-export function canUndo(): boolean {
-    return stateHistory.index > 0 && stateHistory.history.length > 1
-}
+export const canUndoKeyboard = (evt: KeyboardEvent): boolean => evt.ctrlKey && evt.keyCode === 90
 
-export function canUndoKeyboard(evt: KeyboardEvent): boolean {
-    return evt.ctrlKey && evt.keyCode === 90
-}
-
-export function decIndex() {
+export const decIndex = () => {
     stateHistory.index--
 }
 
@@ -50,21 +35,19 @@ export function incIndex() {
 }
 
 export function undo(state: Editor) {
-    if (canUndo()) {
-        if (stateHistory.index > 0) {
-            decIndex()
-        }
+    if (!canUndo()) return state
 
-        return stateHistory.history[stateHistory.index]
+    if (stateHistory.index > 0) {
+        decIndex()
     }
-    return state
+
+    return stateHistory.history[stateHistory.index]
 }
 
 export function redo(state: Editor) {
-    if (canRedo()) {
-        incIndex()
+    if (!canRedo()) return state
 
-        return stateHistory.history[stateHistory.index]
-    }
-    return state
+    incIndex()
+
+    return stateHistory.history[stateHistory.index]
 }

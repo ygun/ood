@@ -1,63 +1,62 @@
 import {Dispatch} from "react"
 import {store} from "../store/store"
-import {END_MOVE_ELEMENTS} from "../store/actionTypes";
+import {END_MOVE_ELEMENTS} from "../store/actionTypes"
+import {getSelectedHTMLElements} from "./getSelectedHTMLElements"
 
-export function endMoveElement(isMoveElements: boolean, dispatch: Dispatch<any>) {
-    let editor = store.getState()
+export const endMoveElement = (isMoveElements: boolean, dispatch: Dispatch<any>) => {
+    const editor = store.getState()
 
     isMoveElements = false
-    let payload = new Map()
+    const payload = new Map()
     let isMoved: boolean = true
-    let selectedElements = []
-    let elements = new Map()
-    for (let i = 0; i < editor.selectionElementsId.length; i++) {
-        selectedElements.push(document.getElementById(editor.selectionElementsId[i]))
-    }
+    const elements = new Map()
 
-    for (let i = 0; i < selectedElements.length; i++) {
-        let elem = selectedElements[i]
+    const selectedHTMLElements = getSelectedHTMLElements(editor)
+    selectedHTMLElements.forEach(elem => {
         editor.elements.forEach(e => {
+            if (!(elem && e.id === elem.id)) return
+
+            let topLeftPointX = 0
+            let topLeftPointY = 0
             if (elem && e.id === elem.id) {
-                let topLeftPointX = 0
-                let topLeftPointY = 0
-                if (elem && e.id === elem.id) {
-                    let parent = elem.parentNode as HTMLElement
-                    if (elem.tagName === 'P') {
-                        parent = parent.parentNode as HTMLElement
-                    }
-
-                    let X = parent.getAttribute('x')
-                    let Y = parent.getAttribute('y')
-                    if (X !== null && X !== undefined) {
-                        topLeftPointX = parseFloat(X.slice(0, -1))
-                    }
-
-                    if (Y !== null && Y !== undefined) {
-                        topLeftPointY = parseFloat(Y.slice(0, -1))
-                    }
+                let parent = elem.parentNode as HTMLElement
+                if (elem.tagName === 'P') {
+                    parent = parent.parentNode as HTMLElement
                 }
 
-                let newPos = new Map()
-                let newTopLeftPoint = new Map()
-                let newBottomRightPoint = new Map()
-                let newCenter = new Map()
-                let bottomRightPointX = Math.round((Math.round((e.bottomRightPoint.x - e.topLeftPoint.x) * 100) / 100 + topLeftPointX) * 100) / 100
-                let bottomRightPointY = Math.round((Math.round((e.bottomRightPoint.y - e.topLeftPoint.y) * 100) / 100 + topLeftPointY) * 100) / 100
-                newTopLeftPoint.set('x', topLeftPointX)
-                newTopLeftPoint.set('y', topLeftPointY)
-                newBottomRightPoint.set('x', bottomRightPointX)
-                newBottomRightPoint.set('y', bottomRightPointY)
-                newCenter.set('x', e.center.x)
-                newCenter.set('y', e.center.y)
-                newPos.set('newTopLeftPoint', newTopLeftPoint)
-                newPos.set('newBottomRightPoint', newBottomRightPoint)
-                newPos.set('newCenter', newCenter)
-                elements.set(e.id, newPos)
+                const X = parent.getAttribute('x')
+                const Y = parent.getAttribute('y')
+                if (X !== null && X !== undefined) {
+                    topLeftPointX = parseFloat(X.slice(0, -1))
+                }
 
-                isMoved = !(topLeftPointX === e.topLeftPoint.x && topLeftPointY === e.topLeftPoint.y)
+                if (Y !== null && Y !== undefined) {
+                    topLeftPointY = parseFloat(Y.slice(0, -1))
+                }
             }
+            const bottomRightPointX = Math.round((Math.round((e.bottomRightPoint.x - e.topLeftPoint.x) * 100) / 100 + topLeftPointX) * 100) / 100
+            const bottomRightPointY = Math.round((Math.round((e.bottomRightPoint.y - e.topLeftPoint.y) * 100) / 100 + topLeftPointY) * 100) / 100
+            const newTopLeftPoint = new Map([
+                ["x", topLeftPointX],
+                ["y", topLeftPointY]
+            ])
+            const newBottomRightPoint = new Map([
+                ["x", bottomRightPointX],
+                ["y", bottomRightPointY]
+            ])
+            const newCenter = new Map([
+                ["x", e.center.x],
+                ["y", e.center.y]
+            ])
+            const newPos = new Map([
+                ["newTopLeftPoint", newTopLeftPoint],
+                ["newBottomRightPoint", newBottomRightPoint],
+                ["newCenter", newCenter]
+            ])
+            elements.set(e.id, newPos)
+            isMoved = !(topLeftPointX === e.topLeftPoint.x && topLeftPointY === e.topLeftPoint.y)
         })
-    }
+    })
 
     payload.set('elements', elements)
 

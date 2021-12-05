@@ -1,11 +1,7 @@
 import {Editor} from '../entities/Editor'
 
-export function deleteElement(editor: Editor): Editor {
-    return {
-        ...editor,
-        elements: editor.elements.filter(elem => {
-            return !editor.selectionElementsId.includes(elem.id)
-        }),
-        selectionElementsId: []
-    }
-}
+export const deleteElement = (editor: Editor): Editor => ({
+    ...editor,
+    elements: editor.elements.filter(elem => !editor.selectionElementsId.includes(elem.id)),
+    selectionElementsId: []
+})

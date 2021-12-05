@@ -1,67 +1,61 @@
 import {store} from "../store/store"
+import {getSelectedHTMLElements} from "./getSelectedHTMLElements"
 
-export function mouseMoveElement(evt: any, firstPosX: number, firstPosY: number) {
-    let editor = store.getState()
-    let stepX
-    let stepY
-    let selectedElements = []
-    for (let i = 0; i < editor.selectionElementsId.length; i++) {
-        selectedElements.push(document.getElementById(editor.selectionElementsId[i]))
-    }
+export const mouseMoveElement = (evt: any, firstPosX: number, firstPosY: number) => {
+    const editor = store.getState()
 
-    stepX = evt.clientX - firstPosX
-    stepY = evt.clientY - firstPosY
+    const stepX = evt.clientX - firstPosX
 
-    let slide = document.getElementsByClassName('workspace')[0]
+    const stepY = evt.clientY - firstPosY
+    const workspace = document.getElementsByClassName('workspace')[0]
+
+    const selectedElements = getSelectedHTMLElements(editor)
     for (let i = 0; i < selectedElements.length; i++) {
-        let elem = selectedElements[i]
-        if (elem) {
-            let parent = elem.parentNode as HTMLElement
-            if (elem.tagName === 'P') {
-                parent = parent.parentNode as HTMLElement
+        const elem = selectedElements[i]
+        if (!elem) continue
+
+        let parent = elem.parentNode as HTMLElement
+        if (elem.tagName === 'P') {
+            parent = parent.parentNode as HTMLElement
+        }
+
+        let prevXAttribute = 0
+        let prevYAttribute = 0
+        editor.elements.forEach(e => {
+            if (elem && e.id === elem.id) {
+                prevXAttribute = e.topLeftPoint.x
+                prevYAttribute = e.topLeftPoint.y
             }
+        })
 
-            let prevXAttribute = 0
-            let prevYAttribute = 0
-
-            editor.elements.forEach(e => {
-                if (elem && e.id === elem.id) {
-                    prevXAttribute = e.topLeftPoint.x
-                    prevYAttribute = e.topLeftPoint.y
-                }
-            })
-
-            let X = prevXAttribute + '%'
-            let Y = prevYAttribute + '%'
-            if (prevXAttribute !== undefined) {
-                X = Math.floor(stepX / (slide.clientWidth) * 100 * 100) / 100 + prevXAttribute + '%'
-            }
-
-            if (prevYAttribute !== undefined) {
-                Y = Math.floor(stepY / (slide.clientHeight) * 100 * 100) / 100 + prevYAttribute + '%'
-            }
-
-            if (parent) {
-                parent.setAttribute('x', X)
-                parent.setAttribute('y', Y)
-            }
+        let X = prevXAttribute + '%'
+        let Y = prevYAttribute + '%'
+        if (prevXAttribute !== undefined) {
+            X = Math.floor(stepX / (workspace.clientWidth) * 100 * 100) / 100 + prevXAttribute + '%'
+        }
+        if (prevYAttribute !== undefined) {
+            Y = Math.floor(stepY / (workspace.clientHeight) * 100 * 100) / 100 + prevYAttribute + '%'
+        }
+        if (parent) {
+            parent.setAttribute('x', X)
+            parent.setAttribute('y', Y)
         }
     }
 
-    let selectionBorder = document.getElementById('selection-border') as HTMLElement
+    const selectionBorder = document.getElementById('selection-border') as HTMLElement
+
     let prevXAttribute: number | string | null = selectionBorder.getAttribute('data-tlp-x')
     let prevYAttribute: number | string | null = selectionBorder.getAttribute('data-tlp-y')
-    let X = prevXAttribute
-    let Y = prevYAttribute
-
     if (prevXAttribute && prevYAttribute) {
         prevXAttribute = parseFloat(prevXAttribute)
         prevYAttribute = parseFloat(prevYAttribute)
     }
 
+    let X = selectionBorder.getAttribute('data-tlp-x')
+    let Y = selectionBorder.getAttribute('data-tlp-y')
     if (typeof(prevXAttribute) === "number" && typeof(prevYAttribute) === "number") {
-        X = Math.floor(stepX / (slide.clientWidth) * 100 * 100) / 100 + prevXAttribute + '%'
-        Y = Math.floor(stepY / (slide.clientHeight) * 100 * 100) / 100 + prevYAttribute + '%'
+        X = Math.floor(stepX / (workspace.clientWidth) * 100 * 100) / 100 + prevXAttribute + '%'
+        Y = Math.floor(stepY / (workspace.clientHeight) * 100 * 100) / 100 + prevYAttribute + '%'
     }
 
     if (X && Y) {

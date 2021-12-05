@@ -1,7 +1,7 @@
 import {mouseMoveElement} from "../functions/mouseMoveElement"
 import {moveElementPoint, resizeElement} from "../functions/resizeElement"
 import {endMoveElement} from "../functions/endMoveElement"
-import {removeSelectOfElement} from "../functions/removeSelectOfElement"
+import {removeSelectOfElements} from "../functions/removeSelectOfElements"
 import {isMoveElement} from "../functions/isMoveElement"
 import {Dispatch} from "react"
 import {useDispatch} from "react-redux"
@@ -11,52 +11,52 @@ import {useEventListener} from "./useEventListner"
 import {endResizeElement} from "../functions/endResizeElement"
 
 
-let isEventMoveElement: boolean
+let isMoveElementEvent: boolean
 let firstPosX: number
 let firstPosY: number
-let isResize: boolean
-let pointIndex: number
+let isResizeAction: boolean
+let draggedPointIndex: number
 let resizePayload: any
-let resized = false
+let wasResizeAction = false
 
-export function useDragAndDrop() {
+export const useDragAndDrop = () => {
     const dispatch: Dispatch<any> = useDispatch()
 
-    let handleMouseDown = (evt: MouseEvent) => {
+    const handleMouseDown = (evt: MouseEvent) => {
         firstPosX = evt.clientX
         firstPosY = evt.clientY
-        isEventMoveElement = isMoveElement(evt)
+        isMoveElementEvent = isMoveElement(evt)
 
-        pointIndex = resizeElement(evt, pointIndex)
-        isResize = pointIndex >= 0
+        draggedPointIndex = resizeElement(evt, draggedPointIndex)
+        isResizeAction = draggedPointIndex >= 0
 
-        removeSelectOfElement(evt, store.dispatch)
+        removeSelectOfElements(evt, store.dispatch)
     }
     useEventListener('mousedown', handleMouseDown)
 
 
-    let handleMouseMove = (evt: MouseEvent) => {
-        if (isEventMoveElement) {
+    const handleMouseMove = (evt: MouseEvent) => {
+        if (isMoveElementEvent) {
             mouseMoveElement(evt, firstPosX, firstPosY)
         }
 
-        if (isResize) {
-            resized = true
-            resizePayload = moveElementPoint(evt, firstPosX, firstPosY, pointIndex)
+        if (isResizeAction) {
+            wasResizeAction = true
+            resizePayload = moveElementPoint(evt, firstPosX, firstPosY, draggedPointIndex)
         }
     }
     useEventListener('mousemove', handleMouseMove)
 
 
-    let handleMouseUp = (evt: MouseEvent) => {
-        if (isEventMoveElement) {
-            isEventMoveElement = endMoveElement(isEventMoveElement, store.dispatch)
+    const handleMouseUp = () => {
+        if (isMoveElementEvent) {
+            isMoveElementEvent = endMoveElement(isMoveElementEvent, store.dispatch)
         }
 
-        if (isResize) {
-            isResize = false
-            pointIndex = -1
-            if (resized) {
+        if (isResizeAction) {
+            isResizeAction = false
+            draggedPointIndex = -1
+            if (wasResizeAction) {
                 endResizeElement()
                 if (!resizePayload.get('small')) {
                     dispatch({type: CHANGE_POSITION_OF_ELEMENTS, payload: resizePayload})

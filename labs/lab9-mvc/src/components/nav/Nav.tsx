@@ -24,64 +24,55 @@ import ColorPicker from "react-pick-color"
 import LineWeightIcon from "@material-ui/icons/LineWeight"
 import {getSelectedElements} from "../../functions/getSelectedElements"
 import {changePrimitiveStyleMenu} from "../../functions/changePrimitiveStyleMenu"
-import {changeTextStyleMenu} from "../../functions/changeTextStyleMenu"
 import {v4 as uuidv4} from "uuid"
 import CheckIcon from "@material-ui/icons/Check"
 import {DEFAULT_ELLIPSE, DEFAULT_RECTANGLE, DEFAULT_TRIANGLE} from "../../entities/Constants"
 
 
-const mapStateToProps = (state: Editor) => {
-    return {
-        state: state,
-    }
-}
+const mapStateToProps = (state: Editor) => ({
+    state: state,
+})
 
 
-const mapDispatchToProps = (dispatch: Dispatch<any>) => {
-    return {
-        undo: () => dispatch({type: UNDO}),
-        redo: () => dispatch({type: REDO}),
+const mapDispatchToProps = (dispatch: Dispatch<any>) => ({
+    undo: () => dispatch({type: UNDO}),
+    redo: () => dispatch({type: REDO}),
 
-        addTriangle: () => dispatch({type: ADD_ELEMENT, payload: DEFAULT_TRIANGLE}),
-        addEllipse: () => dispatch({type: ADD_ELEMENT, payload: DEFAULT_ELLIPSE}),
-        addRectangle: () => dispatch({type: ADD_ELEMENT, payload: DEFAULT_RECTANGLE}),
-        deleteElements: () => {
-            dispatch({type: DELETE_ELEMENTS})
-            changePrimitiveStyleMenu(false)
-            changeTextStyleMenu(false)
-        },
+    addTriangle: () => dispatch({type: ADD_ELEMENT, payload: DEFAULT_TRIANGLE}),
+    addEllipse: () => dispatch({type: ADD_ELEMENT, payload: DEFAULT_ELLIPSE}),
+    addRectangle: () => dispatch({type: ADD_ELEMENT, payload: DEFAULT_RECTANGLE}),
+    deleteElements: () => {
+        dispatch({type: DELETE_ELEMENTS})
+        changePrimitiveStyleMenu(false)
+    },
 
-        changeElementBorderColor: (data: string) => dispatch({type: CHANGE_ELEMENT_BORDER_COLOR, payload: data}),
-        changeElementFillColor: (data: string) => dispatch({type: CHANGE_ELEMENT_FILL_COLOR, payload: data}),
-        changeElementBorderWidth: (data: number) => dispatch({type: CHANGE_ELEMENT_BORDER_WIDTH, payload: data}),
-    }
-}
+    changeElementBorderColor: (data: string) => dispatch({type: CHANGE_ELEMENT_BORDER_COLOR, payload: data}),
+    changeElementFillColor: (data: string) => dispatch({type: CHANGE_ELEMENT_FILL_COLOR, payload: data}),
+    changeElementBorderWidth: (data: number) => dispatch({type: CHANGE_ELEMENT_BORDER_WIDTH, payload: data}),
+})
 
 const Nav = (props: any) => {
-    let editor = props.state
+    const editor = props.state
 
     const elements = getSelectedElements(editor)
+
     let fillColor: string = ''
     let borderColor: string = ''
     let borderSizeView: number = 0
     if ((elements !== undefined) && (elements != null) && (elements.length >= 1)) {
-        let element = elements[0]
+        const element = elements[0]
         borderColor = `rgb(${element.borderColor.red},${element.borderColor.green},${element.borderColor.blue})`
         borderSizeView = element.borderWidth
 
         if (element.backgroundColor != null) {
-            changeTextStyleMenu(false)
             changePrimitiveStyleMenu(true)
             fillColor = `rgb(${element.backgroundColor.red},${element.backgroundColor.green},${element.backgroundColor.blue})`
         }
     }
 
     const borderSizes = [1, 2, 3, 4, 8, 12, 16, 24]
-    let borderSizeItems = borderSizes.map((borderSize: number) => {
-        let opacity: number = 0
-        if (borderSize === borderSizeView) {
-            opacity = 1
-        }
+    const borderSizeItems = borderSizes.map((borderSize: number) => {
+        const opacity = (borderSize === borderSizeView) ? 1 : 0
 
         return <Dropdown.Item key={uuidv4()} className="btn-sm button__onclick"
                               onClick={() => props.changeElementBorderWidth(borderSize)}>
@@ -226,6 +217,6 @@ const Nav = (props: any) => {
             <hr className="second_nav__hr"/>
         </div>
     )
-};
+}
 
 export default connect(mapStateToProps, mapDispatchToProps)(Nav)

@@ -35,7 +35,7 @@
     }
 }
 
-.element_choosed {
+.element_chosen {
     cursor: move;
 }
 
@@ -64,7 +64,7 @@ svg p::before {
     cursor: text;
 }
 
-svg p:empty:not(.element_choosed)::before {
+svg p:empty:not(.element_chosen)::before {
     content: attr(data-placeholder);
     color: #FFFFFF;
     text-shadow: 0 1px 0 #000000, 0 -1px 0 #000000, 1px 0 0 #000000, -1px 0 0 #000000, 1px 1px 0 #000000, 1px -1px 0 #000000, -1px 1px 0 #000000, -1px -1px 0 #000000;

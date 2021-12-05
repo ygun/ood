@@ -2,7 +2,7 @@ import {Editor} from "../entities/Editor"
 import {EditorAction} from "../type"
 import * as actionTypes from "./actionTypes"
 import {setEditor} from "../functions/setEditor"
-import {chooseElement} from "../functions/chooseElement"
+import {chooseElements} from "../functions/chooseElements"
 import {addElement} from "../functions/addElement"
 import {changePositionOfElements} from "../functions/changePositionOfElements"
 import {deleteElement} from "../functions/deleteElement"
@@ -32,12 +32,10 @@ const reducer = (
         case actionTypes.REDO:
             return redo(state)
 
-
-
         /* elements */
         /* main */
         case actionTypes.CHOOSE_ELEMENTS:
-            return chooseElement(state, action.payload)
+            return chooseElements(state, action.payload)
         case actionTypes.ADD_ELEMENT:
             return addElement(state, action.payload)
         case actionTypes.DELETE_ELEMENTS:
@@ -55,7 +53,6 @@ const reducer = (
             return changeElementBorderColor(state, action.payload)
         case actionTypes.CHANGE_ELEMENT_BORDER_WIDTH:
             return changeElementBorderWidth(state, action.payload)
-
     }
 
     return state

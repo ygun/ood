@@ -1,6 +1,6 @@
 import {useEffect, useRef} from "react"
 
-export function useEventListener(eventName: string, handler: any, element = window) {
+export const useEventListener = (eventName: string, handler: any, element = window) => {
     const savedHandler = useRef<any>()
 
     useEffect(() => {
@@ -20,9 +20,7 @@ export function useEventListener(eventName: string, handler: any, element = wind
 
             element.addEventListener(eventName, eventListener)
 
-            return () => {
-                element.removeEventListener(eventName, eventListener)
-            }
+            return () => element.removeEventListener(eventName, eventListener)
         },
         [eventName, element]
     )

@@ -27,7 +27,6 @@ export const getElements = (editor: Editor, dispatch: Dispatch<any>) => editor.e
 
     let strokeLinecap: "round" | "square" | undefined = "square"
     let strokeLinejoin: "round" | "miter" | undefined = "miter"
-
     if (e.type !== ElementType.rectangle) {
         strokeLinecap = "round"
         strokeLinejoin = "round"

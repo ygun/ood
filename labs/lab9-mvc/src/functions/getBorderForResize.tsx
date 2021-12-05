@@ -1,11 +1,11 @@
-import {store} from "../store/store";
-import {Point} from "../entities/Point";
-import {getPointOfSelectBorder} from "./getPointOfSelectBorder";
-import {v4 as uuidv4} from "uuid";
-import {svg} from "react-pick-color/build/components/ColorList/ColorList.style";
-import React from "react";
+import {store} from "../store/store"
+import {Point} from "../entities/Point"
+import {getPointOfSelectBorder} from "./getPointOfSelectBorder"
+import {v4 as uuidv4} from "uuid"
+import {svg} from "react-pick-color/build/components/ColorList/ColorList.style"
+import React from "react"
 
-export function borderForResize() {
+export const getBorderForResize = () => {
     let editor = store.getState()
     if (editor.selectionElementsId.length <= 0) return
 
@@ -51,8 +51,8 @@ export function getBorder(topLeftPoint: Point, bottomRightPoint: Point) {
     const viewBox = `0 0, ${viewBoxWidth}, ${viewBoxHeight}`
     const d = `M 0, 0 H ${viewBoxWidth} V ${viewBoxHeight} H 0 V 0`
 
-    let selectedPoints = getPointOfSelectBorder(width, height, viewBoxWidth, viewBoxHeight)
-    let points = [
+    const selectedPoints = getPointOfSelectBorder(width, height, viewBoxWidth, viewBoxHeight)
+    const points = [
         <path data-value="point" d={selectedPoints[0]} stroke="rgb(255, 255, 255)" strokeWidth="2"
               strokeLinejoin="miter" key={uuidv4()}
               strokeLinecap="square" fill="rgb(26, 115, 232)" style={{cursor: 'nwse-resize'}}/>,

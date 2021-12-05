@@ -1,53 +1,58 @@
 import {Dispatch} from "react"
 import {CHOOSE_ELEMENTS} from "../store/actionTypes"
 
-export function selectElements(event: any, id: string, dispatch: Dispatch<any>) {
-    let clickedElem = event.currentTarget
-    let elemClassName = 'element_choosed'
+export const selectElements = (event: any, id: string, dispatch: Dispatch<any>) => {
+    const clickedElem = event.currentTarget
+    const chosenClassName = 'element_chosen'
 
     if (event.ctrlKey) {
-        if (clickedElem.getAttribute('data-is-element')) {
-            if (clickedElem.classList.contains(elemClassName)) {
-                clickedElem.classList.remove(elemClassName)
-                if (clickedElem.tagName === 'P') {
-                    (clickedElem.parentNode as HTMLElement).style.cursor = 'default'
-                }
-            } else {
-                clickedElem.classList.add(elemClassName)
-                if (clickedElem.tagName === 'P') {
-                    (clickedElem.parentNode as HTMLElement).style.cursor = 'move'
-                }
-            }
+        multipleSelection(clickedElem, chosenClassName, dispatch)
+    } else {
+        singleElemSelection(clickedElem, chosenClassName, dispatch, id)
+    }
+}
 
-            let selectedElems = new Array<string>()
-            let allSelectedElems = document.getElementsByClassName(elemClassName)
-            for (let i = 0; i < allSelectedElems.length; i++) {
-                if (allSelectedElems[i].classList.contains(elemClassName)) {
-                    let selectedElemId = allSelectedElems[i].id
-                    if (selectedElemId) {
-                        selectedElems.push(selectedElemId)
-                    }
-                }
-            }
+const multipleSelection = (clickedElem: any, chosenClassName: string, dispatch: (value: any) => void) => {
+    if (!clickedElem.getAttribute('data-is-element')) return
 
-            dispatch({type: CHOOSE_ELEMENTS, payload: selectedElems})
+    if (clickedElem.classList.contains(chosenClassName)) {
+        clickedElem.classList.remove(chosenClassName)
+        if (clickedElem.tagName === 'P') {
+            (clickedElem.parentNode as HTMLElement).style.cursor = 'default'
         }
     } else {
-        if (!clickedElem.classList.contains(elemClassName)) {
-            let allSelectedElements = document.getElementsByClassName(elemClassName)
-            while (allSelectedElements[0]) {
-                if (allSelectedElements[0].classList.contains(elemClassName)) {
-                    allSelectedElements[0].classList.remove(elemClassName)
-                }
-            }
-
-            clickedElem.classList.toggle(elemClassName)
-
-            if (clickedElem.tagName === 'P') {
-                (clickedElem.parentNode as HTMLElement).style.cursor = 'move'
-            }
-
-            dispatch({type: CHOOSE_ELEMENTS, payload: [id]})
+        clickedElem.classList.add(chosenClassName)
+        if (clickedElem.tagName === 'P') {
+            (clickedElem.parentNode as HTMLElement).style.cursor = 'move'
         }
     }
+
+    let selectedElems = new Array<string>()
+    const allSelectedElems = document.getElementsByClassName(chosenClassName)
+    for (let i = 0; i < allSelectedElems.length; i++) {
+        if (!allSelectedElems[i].classList.contains(chosenClassName)) continue
+
+        const selectedElemId = allSelectedElems[i].id
+        if (selectedElemId) {
+            selectedElems.push(selectedElemId)
+        }
+    }
+    dispatch({type: CHOOSE_ELEMENTS, payload: selectedElems})
+}
+
+const singleElemSelection = (clickedElem: any, chosenClassName: string, dispatch: (value: any) => void, id: string) => {
+    if (clickedElem.classList.contains(chosenClassName)) return
+
+    let selectedElements = document.getElementsByClassName(chosenClassName)
+    for (let i = 0; i < selectedElements.length; i++) {
+        if (selectedElements[i].classList.contains(chosenClassName)) {
+            selectedElements[i].classList.remove(chosenClassName)
+        }
+    }
+
+    clickedElem.classList.toggle(chosenClassName)
+    if (clickedElem.tagName === 'P') {
+        (clickedElem.parentNode as HTMLElement).style.cursor = 'move'
+    }
+    dispatch({type: CHOOSE_ELEMENTS, payload: [id]})
 }

@@ -5,29 +5,24 @@ import {connect} from "react-redux"
 import {Editor} from "../../entities/Editor"
 import {useEventListener} from "../../customHooks/useEventListner"
 import {CHOOSE_ELEMENTS} from "../../store/actionTypes"
-import {borderForResize} from "../../functions/getBorderForResize";
+import {getBorderForResize} from "../../functions/getBorderForResize"
 
 
-const mapStateToProps = (state: Editor) => {
-    return {
-        state: state
-    }
-}
+const mapStateToProps = (state: Editor) => ({
+    state: state
+})
 
-const mapDispatchToProps = (dispatch: Dispatch<any>) => {
-    return {
-        getElements: (editor: Editor) => getElements(editor, dispatch),
-        clearSelectionOnLoaded: () => dispatch({type: CHOOSE_ELEMENTS, payload: []})
-    }
-}
+const mapDispatchToProps = (dispatch: Dispatch<any>) => ({
+    getElements: (editor: Editor) => getElements(editor, dispatch),
+    clearSelectionOnLoaded: () => dispatch({type: CHOOSE_ELEMENTS, payload: []})
+})
 
-function SlideArea(props: any) {
-    let editor = props.state
+const CanvasArea = (props: any) => {
+    const editor = props.state
 
-    let elements: Array<Element>
-    elements = props.getElements(editor)
+    const elements: Array<Element> = props.getElements(editor)
 
-    let handleClearWindow = () => {
+    const handleClearWindow = () => {
         props.clearSelectionOnLoaded()
     }
     useEventListener('unload', handleClearWindow)
@@ -38,10 +33,10 @@ function SlideArea(props: any) {
             <svg className={'workspace'} id={'slide_area_'}
                  style={{background: `0 0 / cover`}}>
                 {elements}
-                {borderForResize()}
+                {getBorderForResize()}
             </svg>
         </div>
     )
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(SlideArea)
+export default connect(mapStateToProps, mapDispatchToProps)(CanvasArea)
